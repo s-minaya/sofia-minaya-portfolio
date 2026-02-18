@@ -1,6 +1,51 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import Particles from "../ui/Particles/Particles";
+import LogoLoop from "../ui/LogoLoop/LogoLoop";
 import "../../styles/Work/Work.scss";
+import {
+  SiJavascript,
+  SiHtml5,
+  SiCss3,
+  SiSass,
+  SiReact,
+  SiVite,
+  SiNodedotjs,
+  SiExpress,
+  SiMysql,
+  SiGit,
+  SiGithub,
+  SiAdobephotoshop,
+  SiCanva,
+  SiRender,
+  SiSlack,
+  SiPostman,
+} from "react-icons/si";
+import { TbTestPipe } from "react-icons/tb";
+import { MdGroups } from "react-icons/md";
+import { VscVscode } from "react-icons/vsc";
+
+// ── Tech logos for LogoLoop ────────────────────────────────────
+const TECH_LOGOS = [
+  { node: <SiJavascript />, title: "JavaScript (ES6+)" },
+  { node: <SiHtml5 />, title: "HTML5" },
+  { node: <SiCss3 />, title: "CSS3" },
+  { node: <SiSass />, title: "Sass" },
+  { node: <SiReact />, title: "React" },
+  { node: <SiVite />, title: "Vite" },
+  { node: <SiNodedotjs />, title: "Node.js" },
+  { node: <SiExpress />, title: "Express.js" },
+  { node: <SiMysql />, title: "MySQL" },
+  { node: <SiGit />, title: "Git" },
+  { node: <SiGithub />, title: "GitHub" },
+  { node: <VscVscode />, title: "VS Code" },
+  { node: <TbTestPipe />, title: "Testing" },
+  { node: <MdGroups />, title: "Agile & Scrum" },
+  { node: <SiRender />, title: "Render" },
+  { node: <SiAdobephotoshop />, title: "Photoshop" },
+  { node: <SiCanva />, title: "Canva" },
+  { node: <SiSlack />, title: "Slack" },
+  { node: <SiPostman />, title: "Postman" },
+];
 
 const PROJECTS = [
   {
@@ -111,6 +156,25 @@ function ArrowIcon({ className = "" }) {
   );
 }
 
+// ── Rewind Icon SVG ───────────────────────────────────────────
+function RewindIcon({ className = "" }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+      <path d="M3 3v5h5" />
+    </svg>
+  );
+}
+
 // ── Project Card ───────────────────────────────────────────────
 function ProjectCard({ project, index }) {
   return (
@@ -122,7 +186,6 @@ function ProjectCard({ project, index }) {
       aria-label={`Ver proyecto ${project.title}`}
       style={{ "--card-index": index }}
     >
-      {/* Image */}
       <div className="work-card__media">
         <img
           src={project.image}
@@ -131,18 +194,18 @@ function ProjectCard({ project, index }) {
           loading="lazy"
           draggable="false"
         />
-        {/* Hover overlay */}
         <div className="work-card__hover-overlay" aria-hidden="true">
           <ArrowIcon className="work-card__hover-icon" />
         </div>
       </div>
 
-      {/* Footer */}
       <div className="work-card__footer">
         <span className="work-card__title">{project.title}</span>
         <ul className="work-card__tags" aria-label="Tecnologías">
           {project.tags.map((tag) => (
-            <li key={tag} className="work-card__tag">{tag}</li>
+            <li key={tag} className="work-card__tag">
+              {tag}
+            </li>
           ))}
         </ul>
       </div>
@@ -150,19 +213,51 @@ function ProjectCard({ project, index }) {
   );
 }
 
+// ── Tech Band ─────────────────────────────────────────────────
+function TechBand() {
+  return (
+    <div className="work__tech-band">
+      <p className="work__tech-label" aria-label="Tools and technologies">
+        tools &amp; technologies
+      </p>
+      <div className="work__tech-loop">
+        <LogoLoop
+          logos={TECH_LOGOS}
+          speed={55}
+          direction="left"
+          logoHeight={50}
+          gap={40}
+          hoverSpeed={0}
+          scaleOnHover
+          fadeOut
+          fadeOutColor="#000000"
+          ariaLabel="Tools and technologies"
+        />
+      </div>
+    </div>
+  );
+}
+
 // ── Work Section ───────────────────────────────────────────────
 function Work() {
   const trackRef = useRef(null);
+  const rewindRafRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isRewinding, setIsRewinding] = useState(false);
   const total = PROJECTS.length;
+  const isAtEnd = activeIndex >= total - 1;
 
-  // Update active dot on scroll
   const onTrackScroll = useCallback(() => {
     const el = trackRef.current;
     if (!el) return;
     const cardW = el.querySelector(".work-card")?.offsetWidth ?? 0;
-    const gap = 24;
-    const idx = Math.round(el.scrollLeft / (cardW + gap));
+
+    const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8;
+    if (atEnd) {
+      setActiveIndex(total - 1);
+      return;
+    }
+    const idx = Math.round(el.scrollLeft / (cardW + 24));
     setActiveIndex(Math.max(0, Math.min(idx, total - 1)));
   }, [total]);
 
@@ -173,20 +268,71 @@ function Work() {
     return () => el.removeEventListener("scroll", onTrackScroll);
   }, [onTrackScroll]);
 
-  const scrollTo = (dir) => {
+  // ── Arrow navigation ──────────────────────────────────────
+  const scrollBy = (dir) => {
     const el = trackRef.current;
     if (!el) return;
     const cardW = el.querySelector(".work-card")?.offsetWidth ?? 320;
     el.scrollBy({ left: dir * (cardW + 24), behavior: "smooth" });
   };
 
+  // ── Dot navigation ────────────────────────────────────────
+  const scrollToIndex = (i) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const cardW = el.querySelector(".work-card")?.offsetWidth ?? 320;
+    el.scrollTo({ left: i * (cardW + 24), behavior: "smooth" });
+  };
+
+  // ── Rewind ────────────────────────────────────────────────
+  const handleRewind = useCallback(() => {
+    const el = trackRef.current;
+    if (!el || isRewinding) return;
+
+    setIsRewinding(true);
+    el.style.scrollBehavior = "auto"; 
+
+    const startScroll = el.scrollLeft;
+    const startTime = performance.now();
+
+    const duration = Math.min(Math.max(startScroll * 0.8, 1200), 2200);
+
+    const animate = (now) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+
+      const eased =
+        progress < 0.5
+          ? 2 * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+      el.scrollLeft = startScroll * (1 - eased);
+
+      if (progress < 1) {
+        rewindRafRef.current = requestAnimationFrame(animate);
+      } else {
+        el.scrollLeft = 0;
+        el.style.scrollBehavior = "";
+        setIsRewinding(false);
+        setActiveIndex(0);
+      }
+    };
+
+    rewindRafRef.current = requestAnimationFrame(animate);
+  }, [isRewinding]);
+
+
+  useEffect(() => {
+    return () => {
+      if (rewindRafRef.current) cancelAnimationFrame(rewindRafRef.current);
+    };
+  }, []);
+
   return (
     <section className="work" id="work" aria-labelledby="work-title">
-      {/* Particles background — independiente del hero */}
+      {/* Particles background */}
       <div className="work__bg" aria-hidden="true">
         <Particles
           particleColors={["#ffffff", "#aaaaaa", "#666666"]}
-          particleCount={80}
+          particleCount={800}
           particleSpread={10}
           speed={0.06}
           particleBaseSize={60}
@@ -201,27 +347,50 @@ function Work() {
         {/* Header row */}
         <div className="work__header">
           <h2 className="work__title" id="work-title">
-            <span className="work__title-line work__title-line--dim">Selected</span>
-            <span className="work__title-line work__title-line--bright">works.</span>
+            <span className="work__title-line work__title-line--dim">
+              Selected
+            </span>
+            <span className="work__title-line work__title-line--bright">
+              works.
+            </span>
           </h2>
 
-          {/* Nav arrows */}
+          {/* Nav: prev · next · rewind */}
           <div className="work__nav" aria-label="Navegar proyectos">
             <button
               className="work__nav-btn"
-              onClick={() => scrollTo(-1)}
-              disabled={activeIndex === 0}
+              onClick={() => scrollBy(-1)}
+              disabled={activeIndex === 0 || isRewinding}
               aria-label="Proyecto anterior"
             >
-              <span className="work__nav-arrow work__nav-arrow--left" aria-hidden="true" />
+              <span
+                className="work__nav-arrow work__nav-arrow--left"
+                aria-hidden="true"
+              />
             </button>
+
             <button
               className="work__nav-btn"
-              onClick={() => scrollTo(1)}
-              disabled={activeIndex >= total - 1}
+              onClick={() => scrollBy(1)}
+              disabled={isAtEnd || isRewinding}
               aria-label="Proyecto siguiente"
             >
-              <span className="work__nav-arrow work__nav-arrow--right" aria-hidden="true" />
+              <span
+                className="work__nav-arrow work__nav-arrow--right"
+                aria-hidden="true"
+              />
+            </button>
+
+            {/* Rewind */}
+            <button
+              className={`work__nav-btn work__nav-btn--rewind${isAtEnd ? " work__nav-btn--rewind-visible" : ""}`}
+              onClick={handleRewind}
+              disabled={isRewinding}
+              aria-label="Volver al primer proyecto"
+            >
+              <RewindIcon
+                className={`work__rewind-icon${isRewinding ? " work__rewind-icon--spinning" : ""}`}
+              />
             </button>
           </div>
         </div>
@@ -236,7 +405,11 @@ function Work() {
         </div>
 
         {/* Dots */}
-        <div className="work__dots" role="tablist" aria-label="Indicadores de proyecto">
+        <div
+          className="work__dots"
+          role="tablist"
+          aria-label="Indicadores de proyecto"
+        >
           {PROJECTS.map((p, i) => (
             <button
               key={p.id}
@@ -244,15 +417,13 @@ function Work() {
               aria-selected={i === activeIndex}
               aria-label={`Ir a ${p.title}`}
               className={`work__dot${i === activeIndex ? " work__dot--active" : ""}`}
-              onClick={() => {
-                const el = trackRef.current;
-                if (!el) return;
-                const cardW = el.querySelector(".work-card")?.offsetWidth ?? 320;
-                el.scrollTo({ left: i * (cardW + 24), behavior: "smooth" });
-              }}
+              onClick={() => scrollToIndex(i)}
             />
           ))}
         </div>
+
+        {/* Tech band */}
+        <TechBand />
       </div>
     </section>
   );

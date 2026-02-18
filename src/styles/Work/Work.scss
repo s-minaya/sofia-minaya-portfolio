@@ -58,6 +58,7 @@
   gap: 0.8rem;
   padding-bottom: 0.4rem;
   flex-shrink: 0;
+  align-items: center;
 }
 
 .work__nav-btn {
@@ -74,8 +75,8 @@
   color: var(--color-text-primary);
   transition:
     border-color 0.25s ease,
-    background 0.25s ease,
-    opacity 0.25s ease;
+    background   0.25s ease,
+    opacity      0.25s ease;
 
   &:hover:not(:disabled) {
     border-color: rgba(255, 255, 255, 0.55);
@@ -99,11 +100,44 @@
   &--right { transform: rotate(45deg)   translate(-1px, 1px); }
 }
 
+// ── Rewind button ─────────────────────────────────────────────
+// Invisible hasta que la última tarjeta está activa
+.work__nav-btn--rewind {
+  opacity: 0;
+  transform: scale(0.6);
+  pointer-events: none;
+  transition:
+    opacity      0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform    0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s ease,
+    background   0.25s ease;
+
+  &.work__nav-btn--rewind-visible {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+}
+
+.work__rewind-icon {
+  width: 16px;
+  height: 16px;
+
+  &--spinning {
+    animation: rewind-spin 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+}
+
+@keyframes rewind-spin {
+  0%   { transform: rotate(0deg); }
+  70%  { transform: rotate(-370deg); }
+  100% { transform: rotate(-360deg); }
+}
+
 // ── Carousel wrapper ──────────────────────────────────────────
 .work__carousel-wrap {
   position: relative;
 
-  // Fade edges
   &::before,
   &::after {
     content: "";
@@ -151,30 +185,20 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   cursor: pointer;
   transition:
-    transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.3s ease,
-    box-shadow 0.38s ease;
+    transform     0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color  0.3s ease,
+    box-shadow    0.38s ease;
 
   &:hover {
     transform: translateY(-8px);
     border-color: rgba(255, 255, 255, 0.2);
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
 
-    .work-card__img {
-      transform: scale(1.06);
-    }
-
-    .work-card__hover-overlay {
-      opacity: 1;
-    }
-
-    .work-card__hover-icon {
-      transform: translate(0, 0);
-      opacity: 1;
-    }
+    .work-card__img          { transform: scale(1.06); }
+    .work-card__hover-overlay { opacity: 1; }
+    .work-card__hover-icon    { transform: translate(0, 0); opacity: 1; }
   }
 
-  // ── Media ──────────────────────────────────────────────────
   &__media {
     position: relative;
     width: 100%;
@@ -212,10 +236,9 @@
     opacity: 0;
     transition:
       transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-      opacity 0.3s ease;
+      opacity   0.3s ease;
   }
 
-  // ── Footer ─────────────────────────────────────────────────
   &__footer {
     padding: 1.4rem 1.6rem 1.6rem;
     display: flex;
@@ -276,17 +299,52 @@
   background: rgba(255, 255, 255, 0.25);
   cursor: pointer;
   padding: 0;
-  transition: background 0.3s ease, transform 0.3s ease, width 0.3s ease;
+  transition: background 0.3s ease, width 0.3s ease;
 
   &--active {
     background: var(--color-text-primary);
     width: 20px;
     border-radius: 10px;
-    transform: none;
   }
 
   &:hover:not(.work__dot--active) {
     background: rgba(255, 255, 255, 0.55);
+  }
+}
+
+// ── Tech Band ─────────────────────────────────────────────────
+.work__tech-band {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  margin-top: var(--spacing-xs);
+}
+
+.work__tech-label {
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 0 var(--spacing-lg);
+  opacity: 0.6;
+}
+
+.work__tech-loop {
+  position: relative;
+  height: 7rem;
+  overflow: hidden;
+
+  svg {
+    color: rgba(255, 255, 255, 0.45);
+    transition: color 0.25s ease;
+  }
+
+  .logoloop__item:hover svg {
+    color: rgba(255, 255, 255, 0.9);
   }
 }
 
