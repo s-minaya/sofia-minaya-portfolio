@@ -1,0 +1,46 @@
+.menu-button {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-main);
+  font-size: var(--font-size-menu-btn);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+
+  &:hover {
+    color: var(--color-text-primary);
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  &__icon {
+    display: inline-block;
+    width: 18px;
+    height: 2px;
+    background-color: currentColor;
+    position: relative;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background-color: currentColor;
+      left: 0;
+      transition: transform 0.3s ease;
+    }
+    &::before { top: -5px; }
+    &::after { top: 5px; }
+  }
+
+  &__text {
+    font-size: 1.4rem;
+  }
+}

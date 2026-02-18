@@ -1,0 +1,138 @@
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+ 
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 6vw;
+  padding-top: 12vh;
+  padding-bottom: 10vh;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 0.35s ease,
+    visibility 0s linear 0.35s;
+
+  &--visible {
+    visibility: visible;
+    opacity: 1;
+    transition:
+      opacity 0.35s ease,
+      visibility 0s linear 0s; 
+  }
+
+  // ── Botón Close ──────────────────────────────────────────────
+  &__close {
+    position: absolute;
+    top: var(--spacing-md);
+    left: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.75);
+    font-family: var(--font-main);
+    font-size: 1.3rem;
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    padding: 0.8rem 1.2rem;
+
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s;
+
+    .menu-overlay--visible & {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &__close-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: relative;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 1.5px;
+      background-color: currentColor;
+      top: 50%;
+      left: 0;
+    }
+
+    &::before { transform: translateY(-50%) rotate(45deg); }
+    &::after  { transform: translateY(-50%) rotate(-45deg); }
+  }
+
+  // ── Nav ───────────────────────────────────────────────────────
+  &__nav {
+    position: relative;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  &__item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.45s ease calc(0.15s + var(--item-index) * 0.08s),
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) calc(0.15s + var(--item-index) * 0.08s);
+
+    .menu-overlay--visible & {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &__link {
+    font-family: var(--font-main);
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    display: inline-block;
+    line-height: 1.05;
+    cursor: pointer;
+    letter-spacing: -0.02em;
+  }
+}
+
+// ── Breakpoints ────────────────────────────────────────────────
+@media (max-width: 767px) {
+  .menu-overlay {
+    padding-left: var(--spacing-lg);
+    padding-top: 10vh;
+  }
+
+  .menu-overlay__link {
+    font-size: clamp(2.8rem, 10vw, 4.5rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .menu-overlay {
+    padding-left: 6vw;
+    padding-top: 8vh;
+  }
+}
+
+@media (min-width: 1200px) {
+  .menu-overlay {
+    padding-left: 6vw;
+    padding-top: 12vh;
+  }
+}

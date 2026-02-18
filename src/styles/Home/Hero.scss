@@ -2,7 +2,7 @@
   position: relative;
   width: 100vw;
   height: 100dvh;
-  overflow: hidden;
+  background-color: var(--color-bg-dark);
 
   &__bg {
     position: absolute;
@@ -19,44 +19,6 @@
     padding: var(--spacing-md) var(--spacing-lg);
     display: flex;
     align-items: center;
-  }
-
-  &__menu-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    background: none;
-    border: none;
-    color: rgba(255, 255, 255, 0.85);
-    font-family: var(--font-main);
-    font-size: var(--font-size-menu-btn);
-    font-weight: var(--font-weight-medium);
-    cursor: pointer;
-    padding: 0;
-
-    &:hover { 
-      color: var(--color-text-primary); 
-    }
-  }
-
-  &__menu-icon {
-    display: inline-block;
-    width: 18px;
-    height: 2px;
-    background-color: currentColor;
-    position: relative;
-
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      background-color: currentColor;
-      left: 0;
-    }
-    &::before { top: -5px; }
-    &::after  { top:  5px; }
   }
 
   &__content {
@@ -85,7 +47,7 @@
   &__title-line {
     display: block;
 
-    &--dim    { color: var(--color-text-muted); }
+    &--dim { color: var(--color-text-muted); }
     &--bright { color: var(--color-text-primary); }
   }
 
@@ -140,18 +102,18 @@
 
 @keyframes cursor-blink {
   0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
+  50% { opacity: 0; }
 }
 
 // ── Breakpoints ────────────────────────────────────────────────
 
 @media (max-width: 374px) {
-  .hero__title   { font-size: 3rem; }
+  .hero__title { font-size: 3rem; }
   .hero__subtitle { font-size: 1.6rem; }
 }
 
 @media (min-width: 768px) {
-  .hero__content { 
+  .hero__content {
     padding: 0 var(--spacing-xl);
     padding-top: var(--spacing-2xl);
   }
@@ -159,7 +121,7 @@
 }
 
 @media (min-width: 1200px) {
-  .hero__content { 
+  .hero__content {
     padding: 0 var(--spacing-2xl);
     padding-top: var(--spacing-2xl);
   }
@@ -167,7 +129,7 @@
 }
 
 @media (min-width: 1600px) {
-  .hero__content { 
+  .hero__content {
     padding: 0 var(--spacing-3xl);
     padding-top: var(--spacing-2xl);
   }
