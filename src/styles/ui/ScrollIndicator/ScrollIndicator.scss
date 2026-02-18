@@ -1,0 +1,77 @@
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__track {
+    width: 20px;
+    height: 27px;
+    border: 2.7px solid var(--color-border-light);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 4px 0;
+    overflow: hidden;
+  }
+
+  &__dot {
+    width: 7px;
+    height: 7px;
+    background-color: var(--color-cursor);
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: scroll-bounce var(--animation-scroll-bounce);
+  }
+}
+
+@keyframes scroll-bounce {
+  0%   { transform: translateY(0);    opacity: 1;   }
+  55%  { transform: translateY(10px); opacity: 0.3; }
+  100% { transform: translateY(0);    opacity: 1;   }
+}
+
+// ── Breakpoints ────────────────────────────────────────────────
+
+@media (min-width: 768px) {
+  .scroll-indicator {
+    &__track {
+      width: 30px;
+      height: 37px;
+      border: 3.7px solid var(--color-border-light);
+    }
+
+    &__dot {
+      width: 10px;
+      height: 10px;
+      animation: scroll-bounce-md var(--animation-scroll-bounce);
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .scroll-indicator {
+    &__track {
+      width: 20px;
+      height: 27px;
+    }
+
+    &__dot {
+      width: 7px;
+      height: 7px;
+      animation: scroll-bounce-lg var(--animation-scroll-bounce);
+    }
+  }
+}
+
+@keyframes scroll-bounce-md {
+  0%   { transform: translateY(0);    opacity: 1;   }
+  55%  { transform: translateY(17px); opacity: 0.3; }
+  100% { transform: translateY(0);    opacity: 1;   }
+}
+
+@keyframes scroll-bounce-lg {
+  0%   { transform: translateY(0);    opacity: 1;   }
+  55%  { transform: translateY(10px); opacity: 0.3; }
+  100% { transform: translateY(0);    opacity: 1;   }
+}

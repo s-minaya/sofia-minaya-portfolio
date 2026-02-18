@@ -1,13 +1,13 @@
 import "../styles/App.scss";
+import Hero from "./Home/Hero";
+import PageLoader from "./Loader/PageLoader";
 
 function App() {
   return (
-    <div>
-      <header className="header">
-        <h1 className="title">Plantilla React</h1>
-      </header>
-      <main className="main">Holis Adalabers!!!</main>
-    </div>
+    <>
+      <PageLoader />
+      <Hero />
+    </>
   );
 }
 

@@ -5,23 +5,63 @@
 }
 
 :root {
-  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  // ── Colores ────────────────────────────────────────────────────
+  --color-bg-dark: #000000;
+  --color-bg-loader: #1E1E1E;
+  
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #f9fafb;
+  --color-text-muted: rgba(255, 255, 255, 0.45);
+  --color-text-dim: rgba(255, 255, 255, 0.4);
+  
+  --color-border-light: rgba(255, 255, 255, 0.45);
+  --color-cursor: rgba(255, 255, 255, 0.7);
+  
+  // ── Tipografía ─────────────────────────────────────────────────
+  --font-main: "Geist", sans-serif;
+  
+  --font-size-hero-title: clamp(2.5rem, 10vw, 6.5rem);
+  --font-size-hero-subtitle: clamp(1.4rem, 6vw, 4rem);
+  --font-size-hero-description: clamp(0.75rem, 3.5vw, 2rem);
+  --font-size-loader-text: clamp(1.4rem, 4vw, 2.8rem);
+  --font-size-menu-btn: 2rem;
+  
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  
+  // ── Espaciado ──────────────────────────────────────────────────
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3.5rem;
+  --spacing-2xl: 5rem;
+  --spacing-3xl: 7rem;
+  
+  // ── Animaciones ────────────────────────────────────────────────
+  --transition-loader: 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+  --animation-cursor-blink: 0.75s step-end infinite;
+  --animation-scroll-bounce: 1.8s ease-in-out infinite;
+  
+  // ── Z-index ────────────────────────────────────────────────────
+  --z-bg: 0;
+  --z-content: 1;
+  --z-header: 2;
+  --z-loader: 9999;
+  
+  // ── Breakpoints  ───────────────────────────────────────────────
+  --bp-mobile: 480px;
+  --bp-tablet: 768px;
+  --bp-desktop: 1200px;
+  --bp-large: 1600px;
+}
+
+html {
+  font-size: 62.5%; // 1rem = 10px para cálculos fáciles
 }
 
 body {
-  background-color: #555;
-  color: #fff;
-}
-
-.header {
-  border-bottom: solid 5px darkcyan;
-
-  .title {
-    line-height: 4rem;
-    padding-inline: 2rem;
-  }
-}
-
-.main {
-  padding: 2rem;
+  font-family: var(--font-main);
+  background-color: var(--color-bg-dark);
 }
