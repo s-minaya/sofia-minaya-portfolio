@@ -27,13 +27,12 @@ function App() {
         />
       </div>
 
-      {/* Nav del menú: detrás del hero, visible cuando isOpen */}
+      {/* Nav del menú */}
       <MenuOverlay isOpen={isOpen} onClose={close} />
 
-      {/* Hero + secciones: siempre encima, se transforma al abrir menú */}
+      {/* Hero + secciones */}
       <div className={`app-container ${isOpen ? "app-container--menu-open" : ""}`}>
         <Hero onMenuClick={toggle} isMenuOpen={isOpen} />
-
         <div className="app-sections">
           {/* Futuras secciones Work, About, etc. */}
         </div>

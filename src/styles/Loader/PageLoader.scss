@@ -19,7 +19,6 @@
       margin-right: -2px;
       z-index: 3;
     }
-
     &--1 {
       display: flex;
       align-items: center;
@@ -28,7 +27,6 @@
       margin-right: -2px;
       z-index: 2;
     }
-
     &--2 {
       margin-left: -2px;
       z-index: 1;
@@ -47,7 +45,7 @@
     font-family: var(--font-main);
     font-size: var(--font-size-loader-text);
     font-weight: var(--font-weight-regular);
-    color: var(--color-text-secondary);
+    color: var(--color-text-primary);
     white-space: nowrap;
     display: flex;
     align-items: center;
@@ -57,7 +55,7 @@
     display: inline-block;
     width: 2px;
     height: 1em;
-    background-color: var(--color-text-secondary);
+    background-color: var(--color-text-primary);
     margin-left: 4px;
     animation: cursor-blink var(--animation-cursor-blink);
   }

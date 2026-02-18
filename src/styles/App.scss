@@ -5,43 +5,41 @@
 }
 
 :root {
-  --color-bg-dark: #000000;
-  --color-bg-loader: #1E1E1E;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #f9fafb;
-  --color-text-muted: rgba(255, 255, 255, 0.45);
-  --color-text-dim: rgba(255, 255, 255, 0.4);
-  --color-border-light: rgba(255, 255, 255, 0.45);
-  --color-cursor: rgba(255, 255, 255, 0.7);
+  // ── Colores ──────────────────────────────────────────────────
+  --color-bg-dark:        #000000;
+  --color-bg-loader:      #1E1E1E;
+  --color-text-primary:   #ffffff;
+  --color-text-muted:     rgba(255, 255, 255, 0.45);
+  --color-cursor:         rgba(255, 255, 255, 0.7);
 
-  --font-main: "Geist", sans-serif;
-  --font-size-hero-title: clamp(2.5rem, 10vw, 6.5rem);
-  --font-size-hero-subtitle: clamp(1.4rem, 6vw, 4rem);
+  // ── Tipografía ───────────────────────────────────────────────
+  --font-main:                  "Geist", sans-serif;
+  --font-size-hero-title:       clamp(2.5rem, 10vw, 6.5rem);
+  --font-size-hero-subtitle:    clamp(1.4rem, 6vw, 4rem);
   --font-size-hero-description: clamp(0.75rem, 3.5vw, 2rem);
-  --font-size-loader-text: clamp(1.4rem, 4vw, 2.8rem);
-  --font-size-menu-btn: 2rem;
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
+  --font-size-loader-text:      clamp(1.4rem, 4vw, 2.8rem);
+  --font-size-nav-items:        2.2rem;
+  --font-weight-regular:        400;
+  --font-weight-medium:         500;
+  --font-weight-semibold:       600;
 
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 1.5rem;
-  --spacing-lg: 2rem;
-  --spacing-xl: 3.5rem;
+  // ── Espaciado ────────────────────────────────────────────────
+  --spacing-xs:  0.5rem;
+  --spacing-sm:  1rem;
+  --spacing-md:  1.5rem;
+  --spacing-lg:  2rem;
+  --spacing-xl:  3.5rem;
   --spacing-2xl: 5rem;
   --spacing-3xl: 7rem;
+  --transition-loader:       0.7s cubic-bezier(0.76, 0, 0.24, 1);
+  --menu-transition:         1s  cubic-bezier(0.76, 0, 0.24, 1);
+  --animation-cursor-blink:  0.75s step-end infinite;
 
-  --transition-loader: 0.7s cubic-bezier(0.76, 0, 0.24, 1);
-  --animation-cursor-blink: 0.75s step-end infinite;
-  --animation-scroll-bounce: 1.8s ease-in-out infinite;
-  --menu-transition: 1s cubic-bezier(0.76, 0, 0.24, 1);
-
-  // Variables que Hero.scss y otros usan internamente
-  --z-bg: 0;
+  // ── Z-index ──────────────────────────────────────────────────
+  --z-bg:      0;
   --z-content: 1;
-  --z-header: 2;
-  --z-loader: 9999;
+  --z-header:  2;
+  --z-loader:  9999;
 }
 
 html {
@@ -65,12 +63,10 @@ body {
   position: relative;
   z-index: 1;
   min-height: 100vh;
-
   transition:
     transform var(--menu-transition),
     border-radius var(--menu-transition),
     box-shadow var(--menu-transition);
-
   transform-origin: top left;
 
   &--menu-open {
@@ -78,7 +74,6 @@ body {
       transform: translateY(82vh);
       border-radius: 20px 20px 0 0;
     }
-
     @media (min-width: 1200px) {
       transform: translate(40%, 28%) rotate(-8deg);
       border-radius: 0;

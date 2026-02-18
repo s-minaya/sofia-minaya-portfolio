@@ -27,7 +27,6 @@ function MenuOverlay({ isOpen, onClose }) {
         <span className="menu-overlay__close-icon" />
         Close
       </button>
-
       <nav className="menu-overlay__nav">
         <ul className="menu-overlay__list">
           {MENU_ITEMS.map((item, index) => (
@@ -41,7 +40,11 @@ function MenuOverlay({ isOpen, onClose }) {
                 className="menu-overlay__link"
                 onClick={onClose}
               >
-                {item.label}
+                {/* Punto que aparece al hover y "empuja" el texto */}
+                <span className="menu-overlay__dot" aria-hidden="true"></span>
+                <span className="menu-overlay__text-inner">
+                  {item.label}
+                </span>
               </a>
             </li>
           ))}

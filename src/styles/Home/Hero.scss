@@ -46,8 +46,7 @@
 
   &__title-line {
     display: block;
-
-    &--dim { color: var(--color-text-muted); }
+    &--dim    { color: var(--color-text-muted); }
     &--bright { color: var(--color-text-primary); }
   }
 
@@ -86,7 +85,7 @@
   &__description {
     font-size: var(--font-size-hero-description);
     font-weight: var(--font-weight-medium);
-    color: var(--color-text-dim);
+    color: var(--color-text-muted);
     max-width: 400px;
     margin-top: var(--spacing-xs);
   }
@@ -102,13 +101,12 @@
 
 @keyframes cursor-blink {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  50%       { opacity: 0; }
 }
 
 // ── Breakpoints ────────────────────────────────────────────────
-
 @media (max-width: 374px) {
-  .hero__title { font-size: 3rem; }
+  .hero__title    { font-size: 3rem; }
   .hero__subtitle { font-size: 1.6rem; }
 }
 
@@ -131,6 +129,6 @@
 @media (min-width: 1600px) {
   .hero__content {
     padding: 0 var(--spacing-3xl);
-    padding-top: var(--spacing-2xl);
+    padding-top: var(--spacing-3xl);
   }
 }
