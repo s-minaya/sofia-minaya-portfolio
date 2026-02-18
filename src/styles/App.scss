@@ -57,6 +57,7 @@ body {
   inset: 0;
   background-color: var(--color-bg-dark);
   pointer-events: none;
+  z-index: var(--z-bg);
 }
 
 .app-container {

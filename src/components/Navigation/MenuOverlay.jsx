@@ -7,7 +7,7 @@ const MENU_ITEMS = [
   { label: "About", href: "#about" },
 ];
 
-function MenuOverlay({ isOpen, onClose }) {
+function MenuOverlay({ isOpen, onClose, onNavigate }) {
   useEffect(() => {
     if (!isOpen) return;
     const handleEscape = (e) => {
@@ -38,7 +38,11 @@ function MenuOverlay({ isOpen, onClose }) {
               <a
                 href={item.href}
                 className="menu-overlay__link"
-                onClick={onClose}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onNavigate) onNavigate(item.href.replace("#", ""));
+                  onClose();
+                }}
               >
                 {/* Punto que aparece al hover y "empuja" el texto */}
                 <span className="menu-overlay__dot" aria-hidden="true"></span>

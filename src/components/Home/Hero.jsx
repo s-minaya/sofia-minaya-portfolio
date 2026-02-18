@@ -10,9 +10,16 @@ const HERO_TYPEWRITER_TEXTS = [
   "multidisciplinary artist.",
 ];
 
-function Hero({ onMenuClick }) {
+const WORK_TYPEWRITER_TEXTS = [
+  "backend development.",
+  "frontend development.",
+  "Agile & Scrum methodologies.",
+  "testing (basic knowledge)",
+];
+
+function Hero({ onMenuClick, workMode = false, hideScrollIndicator = false }) {
   const { displayed, isDeleting } = useTypewriter({
-    texts: HERO_TYPEWRITER_TEXTS,
+    texts: workMode ? WORK_TYPEWRITER_TEXTS : HERO_TYPEWRITER_TEXTS,
     typingSpeed: 75,
     deletingSpeed: 45,
     pauseAfterType: 2000,
@@ -20,7 +27,7 @@ function Hero({ onMenuClick }) {
   });
 
   return (
-    <section className="hero">
+    <section id="home" className="hero">
       {/* Fondo iridiscente */}
       <div className="hero__bg">
         <Iridescence color={[0.5, 0.6, 0.8]} speed={1} amplitude={0.12} />
@@ -36,15 +43,18 @@ function Hero({ onMenuClick }) {
         <div className="hero__text-block">
           <h1 className="hero__title">
             <span className="hero__title-line hero__title-line--dim">
-              Hey, I&apos;m{" "}
+              {workMode ? "Here is some of my" : "Hey, I'm"}{" "}
             </span>
             <span className="hero__title-line hero__title-line--bright">
-              Sofía Minaya.
+              {workMode ? "Work" : "Sofía Minaya."}
             </span>
           </h1>
 
           <p className="hero__subtitle">
-            <span className="hero__subtitle-fixed">I&apos;m a </span>
+            <span className="hero__subtitle-fixed">
+              {workMode ? "I have experience with" : "I'm a"}
+            </span>
+            {'\u00A0'}
             <span className="hero__subtitle-typewriter">
               {displayed}
               <span
@@ -56,17 +66,23 @@ function Hero({ onMenuClick }) {
           </p>
 
           <p className="hero__description">
-            Passionate about creating, learning,
-            <br />
-            and sharing ideas through code and art.
+            {workMode
+              ? "When I\u2019m not coding, you\u2019ll probably find me gaming, drawing, or going down a random creative rabbit hole."
+              : (
+                <>Passionate about creating, learning,
+                <br />
+                and sharing ideas through code and art.</>
+              )}
           </p>
         </div>
       </div>
 
       {/* Indicador de scroll */}
-      <div className="hero__scroll">
-        <ScrollIndicator />
-      </div>
+      {!hideScrollIndicator && (
+        <div className="hero__scroll">
+          <ScrollIndicator />
+        </div>
+      )}
     </section>
   );
 }
