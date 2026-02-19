@@ -6,42 +6,42 @@
 
 :root {
   // ── Colores ──────────────────────────────────────────────────
-  --color-bg-dark:        #000000;
-  --color-bg-loader:      #1E1E1E;
-  --color-text-primary:   #ffffff;
-  --color-text-muted:     rgba(255, 255, 255, 0.45);
-  --color-cursor:         rgba(255, 255, 255, 0.7);
+  --color-bg-dark: #000000;
+  --color-bg-loader: #1e1e1e;
+  --color-text-primary: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.45);
+  --color-cursor: rgba(255, 255, 255, 0.7);
 
   // ── Tipografía ───────────────────────────────────────────────
-  --font-main:                  "Geist", sans-serif;
-  --font-size-hero-title:       clamp(2.5rem, 10vw, 6.5rem);
-  --font-size-hero-subtitle:    clamp(1.4rem, 6vw, 4rem);
+  --font-main: "Geist", sans-serif;
+  --font-size-hero-title: clamp(2.5rem, 10vw, 6.5rem);
+  --font-size-hero-subtitle: clamp(1.4rem, 6vw, 4rem);
   --font-size-hero-description: clamp(0.75rem, 3.5vw, 2rem);
-  --font-size-loader-text:      clamp(1.4rem, 4vw, 2.8rem);
-  --font-size-nav-items:        2.2rem;
-  --font-weight-regular:        400;
-  --font-weight-medium:         500;
-  --font-weight-semibold:       600;
+  --font-size-loader-text: clamp(1.4rem, 4vw, 2.8rem);
+  --font-size-nav-items: 2.2rem;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
   --font-japanese: "Noto Sans JP", sans serif;
 
   // ── Espaciado ────────────────────────────────────────────────
-  --spacing-xs:  0.5rem;
-  --spacing-sm:  1rem;
-  --spacing-md:  1.5rem;
-  --spacing-lg:  2rem;
-  --spacing-xl:  3.5rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3.5rem;
   --spacing-2xl: 5rem;
   --spacing-3xl: 7rem;
 
-  --transition-loader:       0.7s cubic-bezier(0.76, 0, 0.24, 1);
-  --menu-transition:         1s  cubic-bezier(0.76, 0, 0.24, 1);
-  --animation-cursor-blink:  0.75s step-end infinite;
+  --transition-loader: 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+  --menu-transition: 1s cubic-bezier(0.76, 0, 0.24, 1);
+  --animation-cursor-blink: 0.75s step-end infinite;
 
   // ── Z-index ──────────────────────────────────────────────────
-  --z-bg:      0;
+  --z-bg: 0;
   --z-content: 1;
-  --z-header:  2;
-  --z-loader:  9999;
+  --z-header: 2;
+  --z-loader: 9999;
 
   // ── MagicBento ───────────────────────────────────────────────
   --glow-x: 50%;
@@ -61,23 +61,30 @@ body {
   overflow-x: hidden;
 }
 
+#root {
+  position: relative;
+}
+
 .menu-bg-layer {
   position: fixed;
   inset: 0;
   background-color: var(--color-bg-dark);
   pointer-events: none;
-  z-index: var(--z-bg);
+  z-index: -1;
 }
 
 .app-container {
   position: relative;
   z-index: 1;
   min-height: 100vh;
+  margin-bottom: 220px;
   transition:
-    transform       var(--menu-transition),
-    border-radius   var(--menu-transition),
-    box-shadow      var(--menu-transition);
+    transform var(--menu-transition),
+    border-radius var(--menu-transition),
+    box-shadow var(--menu-transition);
   transform-origin: top left;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
 
   &--menu-open {
     @media (max-width: 1199px) {
@@ -97,4 +104,23 @@ body {
   background-color: var(--color-bg-dark);
   display: flex;
   flex-direction: column;
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .app-container {
+    margin-bottom: 460px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  .app-container {
+    margin-bottom: 240px;
+  }
+}
+@media (min-width: 1200px) {
+  .app-container {
+    margin-bottom: 220px;
+  }
 }
