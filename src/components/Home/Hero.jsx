@@ -17,14 +17,75 @@ const WORK_TYPEWRITER_TEXTS = [
   "testing (basic knowledge)",
 ];
 
-function Hero({ onMenuClick, workMode = false, hideScrollIndicator = false }) {
+const ABOUT_TYPEWRITER_TEXTS = [
+  "curiosity-driven.",
+  "detail-oriented.",
+  "always learning.",
+  "creative at heart.",
+];
+
+function Hero({ onMenuClick, workMode = false, aboutMode = false, hideScrollIndicator = false }) {
+  const activeTexts = workMode
+    ? WORK_TYPEWRITER_TEXTS
+    : aboutMode
+      ? ABOUT_TYPEWRITER_TEXTS
+      : HERO_TYPEWRITER_TEXTS;
+
   const { displayed, isDeleting } = useTypewriter({
-    texts: workMode ? WORK_TYPEWRITER_TEXTS : HERO_TYPEWRITER_TEXTS,
+    texts: activeTexts,
     typingSpeed: 75,
     deletingSpeed: 45,
     pauseAfterType: 2000,
     pauseAfterDelete: 350,
   });
+
+  // ── Title ────────────────────────────────────────────────────
+  const titleDim = workMode
+    ? "Here is some of my"
+    : aboutMode
+      ? "A little bit"
+      : "Hey, I'm";
+
+  const titleBright = workMode
+    ? "Work."
+    : aboutMode
+      ? "About me."
+      : "Sofía Minaya.";
+
+  // ── Subtitle ─────────────────────────────────────────────────
+  const subtitleFixed = workMode
+    ? "I have experience with"
+    : aboutMode
+      ? "I'm"
+      : "I'm a";
+
+  // ── Description ──────────────────────────────────────────────
+  let descriptionNode;
+  if (workMode) {
+    descriptionNode = (
+      <p className="hero__description">
+        When I&apos;m not coding, you&apos;ll probably find me gaming, drawing,
+        or going down a random creative rabbit hole.
+      </p>
+    );
+  } else if (aboutMode) {
+    descriptionNode = (
+      <p className="hero__description">
+        Hospitality industry survivor turned full-stack developer.
+        Curious, resilient, and always chasing the next creative challenge.
+      </p>
+    );
+  } else {
+    descriptionNode = (
+      <p className="hero__description">
+        Passionate about creating, learning,
+        <br />
+        and sharing ideas through code and art.
+      </p>
+    );
+  }
+
+  const cursorClass = "hero__cursor" + (isDeleting ? " hero__cursor--deleting" : "");
 
   return (
     <section id="home" className="hero">
@@ -43,37 +104,23 @@ function Hero({ onMenuClick, workMode = false, hideScrollIndicator = false }) {
         <div className="hero__text-block">
           <h1 className="hero__title">
             <span className="hero__title-line hero__title-line--dim">
-              {workMode ? "Here is some of my" : "Hey, I'm"}{" "}
+              {titleDim}{" "}
             </span>
             <span className="hero__title-line hero__title-line--bright">
-              {workMode ? "Work" : "Sofía Minaya."}
+              {titleBright}
             </span>
           </h1>
 
           <p className="hero__subtitle">
-            <span className="hero__subtitle-fixed">
-              {workMode ? "I have experience with" : "I'm a"}
-            </span>
-            {'\u00A0'}
+            <span className="hero__subtitle-fixed">{subtitleFixed}</span>
+            {"\u00A0"}
             <span className="hero__subtitle-typewriter">
               {displayed}
-              <span
-                className={`hero__cursor ${
-                  isDeleting ? "hero__cursor--deleting" : ""
-                }`}
-              />
+              <span className={cursorClass} />
             </span>
           </p>
 
-          <p className="hero__description">
-            {workMode
-              ? "When I\u2019m not coding, you\u2019ll probably find me gaming, drawing, or going down a random creative rabbit hole."
-              : (
-                <>Passionate about creating, learning,
-                <br />
-                and sharing ideas through code and art.</>
-              )}
-          </p>
+          {descriptionNode}
         </div>
       </div>
 

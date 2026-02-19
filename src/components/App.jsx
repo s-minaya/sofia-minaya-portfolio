@@ -4,28 +4,35 @@ import PageLoader from "./Loader/PageLoader";
 import MenuOverlay from "./Navigation/MenuOverlay";
 import useMenuState from "../hooks/useMenuState";
 import Particles from "./ui/Particles/Particles";
-import { useEffect, useRef, useState } from "react";
 import Work from "./Work/Work";
+import About from "./About/About";
+import { useEffect, useRef, useState } from "react";
 
 function App() {
   const { isOpen, toggle, close } = useMenuState();
-  const [workMode, setWorkMode] = useState(false);
+  const [activeSection, setActiveSection] = useState("home"); // "home" | "work" | "about"
   const [hideScrollIndicator, setHideScrollIndicator] = useState(false);
-
   const workRef = useRef(null);
+  const aboutRef = useRef(null);
 
   const handleNavigateFromMenu = (target) => {
     if (target === "work") {
-      setWorkMode(true);
+      setActiveSection("work");
+      const transitionMs = 1100;
+      setTimeout(() => {
+        const heroEl = document.getElementById("home");
+        if (heroEl) heroEl.scrollIntoView({ behavior: "smooth" });
+      }, transitionMs);
+    } else if (target === "about") {
+      setActiveSection("about");
       const transitionMs = 1100;
       setTimeout(() => {
         const heroEl = document.getElementById("home");
         if (heroEl) heroEl.scrollIntoView({ behavior: "smooth" });
       }, transitionMs);
     } else if (target === "home") {
-      setWorkMode(false);
+      setActiveSection("home");
     }
-  
   };
 
   useEffect(() => {
@@ -43,11 +50,13 @@ function App() {
     if ("scrollRestoration" in history) {
       history.scrollRestoration = "manual";
     }
-    if (window.location.hash === "#work") {
+    if (window.location.hash) {
       history.replaceState(null, "", window.location.pathname + window.location.search);
     }
     window.scrollTo(0, 0);
   }, []);
+
+  const containerClass = "app-container" + (isOpen ? " app-container--menu-open" : "");
 
   return (
     <>
@@ -76,18 +85,21 @@ function App() {
       />
 
       {/* Hero + secciones */}
-      <div className={`app-container ${isOpen ? "app-container--menu-open" : ""}`}>
+      <div className={containerClass}>
         <Hero
           onMenuClick={toggle}
           isMenuOpen={isOpen}
-          workMode={workMode}
+          workMode={activeSection === "work"}
+          aboutMode={activeSection === "about"}
           hideScrollIndicator={hideScrollIndicator}
         />
         <div className="app-sections">
           <section id="work" ref={workRef}>
             <Work />
           </section>
-          {/* Futuras secciones About, etc. */}
+          <section id="about" ref={aboutRef}>
+            <About />
+          </section>
         </div>
       </div>
     </>
