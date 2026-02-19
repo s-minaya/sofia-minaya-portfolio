@@ -55,7 +55,7 @@ const PROJECTS = [
     title: "Bat-Magotchi",
     description: "Interactive bat Tamagotchi game.",
     url: "https://s-minaya.github.io/bat-magotchi/",
-    image: "/src/images/projects/bat-magotchi.jpg",
+    image: new URL('../../images/projects/bat-magotchi.jpg', import.meta.url).href,
     tags: ["JavaScript", "Game"],
   },
   {
@@ -63,7 +63,7 @@ const PROJECTS = [
     title: "Animal Crossing API",
     description: "Full REST API with Node.js, Express, and MySQL.",
     url: "https://github.com/Adalab/modulo-4-evaluacion-final-bpw-s-minaya",
-    image: "/src/images/projects/animal-crossing-api.jpg",
+    image: new URL('../../images/projects/animal-crossing-api.jpg', import.meta.url).href,
     tags: ["Node.js", "Express", "MySQL"],
   },
   {
@@ -71,7 +71,7 @@ const PROJECTS = [
     title: "Awesome Profile Cards",
     description: "Fullstack app — live demo + code.",
     url: "https://estherquiros.github.io/project-promo-58-modulo-3-team-2/",
-    image: "/src/images/projects/profile-cards.jpg",
+    image: new URL('../../images/projects/profile-cards.jpg', import.meta.url).href,
     tags: ["React", "Node.js", "MySQL"],
   },
   {
@@ -79,7 +79,7 @@ const PROJECTS = [
     title: "Design Your Pokémon Team",
     description: "Advanced carousel and animations.",
     url: "https://s-minaya.github.io/dise-a-tu-equipo-pokemon/",
-    image: "/src/images/projects/pokemon.jpg",
+    image: new URL('../../images/projects/pokemon.jpg', import.meta.url).href,
     tags: ["JavaScript", "Animations"],
   },
   {
@@ -87,7 +87,7 @@ const PROJECTS = [
     title: "Memory Game",
     description: "Matching card game using React.",
     url: "https://s-minaya.github.io/juego-de-memoria/",
-    image: "/src/images/projects/memoria.jpg",
+    image: new URL('../../images/projects/memoria.jpg', import.meta.url).href,
     tags: ["React", "Game"],
   },
   {
@@ -95,7 +95,7 @@ const PROJECTS = [
     title: "Harry Potter Characters",
     description: "Page with filters and routing.",
     url: "https://beta.adalab.es/modulo-3-evaluacion-final-s-minaya/",
-    image: "/src/images/projects/harry-potter.jpg",
+    image: new URL('../../images/projects/harry-potter.jpg', import.meta.url).href,
     tags: ["React", "Routing"],
   },
   {
@@ -103,7 +103,7 @@ const PROJECTS = [
     title: "Math Workshop",
     description: "Interactive math workshop using JavaScript.",
     url: "https://s-minaya.github.io/Matematicas-con-JavaScript/",
-    image: "/src/images/projects/matematicas.jpg",
+    image: new URL('../../images/projects/matematicas.jpg', import.meta.url).href,
     tags: ["JavaScript", "Educational"],
   },
   {
@@ -111,7 +111,7 @@ const PROJECTS = [
     title: "Virtual Store",
     description: "First interaction with APIs.",
     url: "https://beta.adalab.es/modulo-2-evaluacion-final-s-minaya/",
-    image: "/src/images/projects/tienda-virtual.jpg",
+    image: new URL('../../images/projects/tienda-virtual.jpg', import.meta.url).href,
     tags: ["JavaScript", "API"],
   },
   {
@@ -119,7 +119,7 @@ const PROJECTS = [
     title: "Rock Paper Scissors",
     description: "Getting started with JavaScript.",
     url: "https://beta.adalab.es/modulo-2-evaluacion-intermedia-s-minaya/",
-    image: "/src/images/projects/piedra-papel-tijera.jpg",
+    image: new URL('../../images/projects/piedra-papel-tijera.jpg', import.meta.url).href,
     tags: ["JavaScript", "Game"],
   },
   {
@@ -127,7 +127,7 @@ const PROJECTS = [
     title: "Adatech",
     description: "First team project.",
     url: "https://s-minaya.github.io/proyect-promo-58-module-1-team-1/",
-    image: "/src/images/projects/adatech.jpg",
+    image: new URL('../../images/projects/adatech.jpg', import.meta.url).href,
     tags: ["HTML", "CSS", "Team"],
   },
   {
@@ -135,7 +135,7 @@ const PROJECTS = [
     title: "Mefis",
     description: "My very first code! Inspired by my cat.",
     url: "https://s-minaya.github.io/Mefis/",
-    image: "/src/images/projects/mefis.jpg",
+    image: new URL('../../images/projects/mefis.jpg', import.meta.url).href,
     tags: ["HTML", "First project"],
   },
 ];
