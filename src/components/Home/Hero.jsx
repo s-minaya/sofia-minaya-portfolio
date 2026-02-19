@@ -5,7 +5,7 @@ import MenuButton from "../Navigation/MenuButton";
 import useTypewriter from "../../hooks/useTypewriter";
 
 const HERO_TYPEWRITER_TEXTS = [
-  "full stack developer junior.",
+  "full-stack developer junior.",
   "bit nerdy.",
   "multidisciplinary artist.",
 ];

@@ -42,22 +42,13 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    const onScroll = () => {
-      if (window.scrollY > 10) setHideScrollIndicator(true);
-
-      // Restaurar orden natural cuando Work entra visible en scroll natural
-      if (aboutFirst && workRef.current) {
-        const workTop = workRef.current.getBoundingClientRect().top;
-        if (workTop < window.innerHeight * 0.5 && workTop > 0) {
-          setAboutFirst(false);
-          setActiveSection("home");
-        }
-      }
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [aboutFirst]);
+ useEffect(() => {
+  const onScroll = () => {
+    if (window.scrollY > 10) setHideScrollIndicator(true);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  return () => window.removeEventListener("scroll", onScroll);
+}, []);
 
   useEffect(() => {
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";

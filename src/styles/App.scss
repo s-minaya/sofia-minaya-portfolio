@@ -88,7 +88,7 @@ body {
 
   &--menu-open {
     @media (max-width: 1199px) {
-      transform: translateY(82vh);
+      transform: translateY(50vh);
       border-radius: 20px 20px 0 0;
     }
     @media (min-width: 1200px) {
