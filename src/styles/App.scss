@@ -41,6 +41,14 @@
   --z-content: 1;
   --z-header:  2;
   --z-loader:  9999;
+
+  /* ── Card base ──────────────────────────────────────────────── */
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-intensity: 0;
+  --glow-radius: 300px;
+  --glow-color: 128, 153, 204;
+
 }
 
 html {

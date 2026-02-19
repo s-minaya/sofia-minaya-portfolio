@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Gamepad2, Palette, Music, Sprout, FolderGit2, Clock, Coffee, Plane, ChefHat } from "lucide-react";
 import Particles from "../ui/Particles/Particles";
+import { ParticleCard, GlobalSpotlight, useMobileDetection } from "../ui/MagicBento/MagicBento";
 import "../../styles/About/About.scss";
 import portraitGif from "../../images/portrait.gif";
 
@@ -24,7 +25,6 @@ function useCountUp(target, duration = 1800, startOnMount = false) {
     const step = (now) => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // ease out expo
       const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
       setCount(Math.floor(ease * target));
       if (progress < 1) rafRef.current = requestAnimationFrame(step);
@@ -66,16 +66,20 @@ function StatItem({ value, suffix, label, icon: Icon, delay = 0 }) {
 }
 
 // ── Animated Stats Component ───────────────────────────────────
-function AnimatedStats() {
+function AnimatedStats({ isMobile }) {
   return (
-    <div className="about-cell about-cell--stats">
+    <ParticleCard
+      className="about-cell about-cell--stats"
+      disableAnimations={isMobile}
+      clickEffect
+    >
       <span className="about-cell__label">by the numbers</span>
       <div className="stats__grid">
         {STATS.map((s, i) => (
           <StatItem key={s.label} {...s} delay={i * 200} />
         ))}
       </div>
-    </div>
+    </ParticleCard>
   );
 }
 
@@ -90,8 +94,8 @@ const FUN_FACTS = [
 ];
 
 const PERSONAL = [
-  { key: "Based in",    value: "Spain 🇪🇸" },
-  { key: "Languages",   value: <span>Spanish · English ·<br />Japanese (learning)</span> },
+  { key: "Based in",   value: "Spain 🇪🇸" },
+  { key: "Languages",  value: <span>Spanish · English ·<br />Japanese (learning)</span> },
   { key: "Background", value: "Hospitality → Web Dev" },
   { key: "Currently",  value: "Open to opportunities" },
 ];
@@ -138,7 +142,7 @@ function VinylRecord() {
       href="https://open.spotify.com/playlist/7DwFC1PeTjsiTofr4BPLi4"
       target="_blank"
       rel="noopener noreferrer"
-      className="about-cell about-cell--vinyl"
+      className="about-cell about-cell--vinyl magic-bento-card magic-bento-card--border-glow"
       aria-label="Open coding playlist on Spotify"
     >
       <div className="vinyl__disc" ref={discRef} aria-hidden="true">
@@ -166,8 +170,18 @@ function VinylRecord() {
 
 // ── About ──────────────────────────────────────────────────────
 function About() {
+  const gridRef  = useRef(null);
+  const isMobile = useMobileDetection();
+
   return (
     <section className="about" id="about" aria-labelledby="about-title">
+
+      <GlobalSpotlight
+        gridRef={gridRef}
+        disableAnimations={isMobile}
+        enabled
+        spotlightRadius={350}
+      />
 
       <div className="about__bg" aria-hidden="true">
         <Particles
@@ -182,12 +196,15 @@ function About() {
         />
       </div>
 
-      <div className="about__inner">
+      <div className="about__inner" ref={gridRef}>
 
-        {/* ─────────────────────────────────────────────────────
-                              CELDA A
-        ───────────────────────────────────────────────────── */}
-        <div className="about-cell about-cell--portrait">
+        {/* ── CELDA A: portrait ─────────────────────────────── */}
+        <ParticleCard
+          className="about-cell about-cell--portrait"
+          disableAnimations={isMobile}
+          clickEffect
+        >
+          <div className="about-cell__scanlines" aria-hidden="true" />
 
           <LiveClock />
 
@@ -209,20 +226,20 @@ function About() {
             <span className="portrait-badge__text">Available for work</span>
           </div>
 
-          {/* Cita */}
           <div className="portrait-quote">
             <span className="portrait-quote__mark" aria-hidden="true">&ldquo;</span>
             <span className="portrait-quote__jp">花が咲いたよ</span>
             <span className="portrait-quote__en">The flower has bloomed.</span>
             <span className="portrait-quote__mark portrait-quote__mark--close" aria-hidden="true">&rdquo;</span>
           </div>
+        </ParticleCard>
 
-        </div>
-
-        {/* ─────────────────────────────────────────────────────
-                             CELDA B
-        ───────────────────────────────────────────────────── */}
-        <div className="about-cell about-cell--bio">
+        {/* ── CELDA B: bio ──────────────────────────────────── */}
+        <ParticleCard
+          className="about-cell about-cell--bio"
+          disableAnimations={isMobile}
+          clickEffect
+        >
           <h2 className="about-cell__heading" id="about-title">
             <span className="about-cell__heading-dim">A little bit</span>
             <span className="about-cell__heading-bright">about me.</span>
@@ -232,17 +249,17 @@ function About() {
             development — a field that truly sparked my passion and where I&apos;m motivated to keep growing.
             Analytical, organised, resilient, and always chasing the next creative challenge.
           </p>
-        </div>
+        </ParticleCard>
 
-        {/* ─────────────────────────────────────────────────────
-                             CELDA C
-        ───────────────────────────────────────────────────── */}
+        {/* ── CELDA C: vinyl ───────────────────────────────── */}
         <VinylRecord />
 
-        {/* ─────────────────────────────────────────────────────
-                             CELDA D
-        ───────────────────────────────────────────────────── */}
-        <div className="about-cell about-cell--personal">
+        {/* ── CELDA D: personal details ─────────────────────── */}
+        <ParticleCard
+          className="about-cell about-cell--personal"
+          disableAnimations={isMobile}
+          clickEffect
+        >
           <span className="about-cell__label">details</span>
           <dl className="about-cell__personal-list">
             {PERSONAL.map(({ key, value }) => (
@@ -252,12 +269,14 @@ function About() {
               </div>
             ))}
           </dl>
-        </div>
+        </ParticleCard>
 
-        {/* ─────────────────────────────────────────────────────
-                            CELDA E:
-        ───────────────────────────────────────────────────── */}
-        <div className="about-cell about-cell--interests">
+        {/* ── CELDA E: interests ────────────────────────────── */}
+        <ParticleCard
+          className="about-cell about-cell--interests"
+          disableAnimations={isMobile}
+          clickEffect
+        >
           <span className="about-cell__label">outside of code</span>
           <ul className="about-cell__facts">
             {FUN_FACTS.map(({ icon: Icon, label, detail }) => (
@@ -272,12 +291,10 @@ function About() {
               </li>
             ))}
           </ul>
-        </div>
+        </ParticleCard>
 
-        {/* ─────────────────────────────────────────────────────
-                             CELDA F
-        ───────────────────────────────────────────────────── */}
-        <AnimatedStats />
+        {/* ── CELDA F: stats ────────────────────────────────── */}
+        <AnimatedStats isMobile={isMobile} />
 
       </div>
     </section>
