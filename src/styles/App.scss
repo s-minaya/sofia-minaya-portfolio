@@ -77,7 +77,7 @@ body {
   position: relative;
   z-index: 1;
   min-height: 100vh;
-  margin-bottom: 220px;
+  margin-bottom: 160px;
   transition:
     transform var(--menu-transition),
     border-radius var(--menu-transition),
@@ -111,16 +111,16 @@ body {
 
 @media (max-width: 767px) {
   .app-container {
-    margin-bottom: 460px;
+    margin-bottom: 210px;
   }
 }
 @media (min-width: 768px) and (max-width: 1199px) {
   .app-container {
-    margin-bottom: 240px;
+    margin-bottom: 175px;
   }
 }
 @media (min-width: 1200px) {
   .app-container {
-    margin-bottom: 220px;
+    margin-bottom: 160px;
   }
 }

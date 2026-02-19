@@ -20,7 +20,16 @@ useEffect(() => {
   const footer = footerRef.current;
   if (!footer) return;
 
+  // Estado inicial invisible y estrecho
   footer.style.opacity = "0";
+  footer.style.width = getStartWidth();
+
+  function getStartWidth() {
+    const w = window.innerWidth;
+    if (w < 768)  return "85vw";
+    if (w < 1200) return "55vw";
+    return "35vw";
+  }
 
   const update = () => {
     const scrollY   = window.scrollY;
@@ -29,12 +38,21 @@ useEffect(() => {
     const start     = Math.max(0, maxScroll - ZONE);
     const progress  = Math.min(1, Math.max(0, (scrollY - start) / ZONE));
 
+    const w = window.innerWidth;
+    const startVw = w < 768 ? 85 : w < 1200 ? 55 : 35;
+    const currentVw = startVw + (100 - startVw) * progress;
+
     footer.style.opacity = progress;
+    footer.style.width   = `${currentVw}vw`;
   };
 
   window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update, { passive: true }); // recalcula si cambia viewport
   update();
-  return () => window.removeEventListener("scroll", update);
+  return () => {
+    window.removeEventListener("scroll", update);
+    window.removeEventListener("resize", update);
+  };
 }, []);
 
   const handleMenuClick = (e, href) => {

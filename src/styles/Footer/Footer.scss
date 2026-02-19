@@ -7,14 +7,13 @@
   z-index: 0;
   background-color: #0a0a0a;
   opacity: 0;
-  width: 100vw;
-
-  // Desktop layout
+  transition: width 0.15s ease;
   display: grid;
   grid-template-columns: 1fr auto auto;
   align-items: center;
   gap: 0 var(--spacing-2xl);
   padding: var(--spacing-xl) var(--spacing-xl);
+  padding-top: 5rem;        
   min-height: 220px;
 }
 
@@ -177,6 +176,7 @@
     align-items: start;
     width: 100vw;         
     padding: var(--spacing-lg) var(--spacing-md);
+    padding-top: 5rem;  
   }
 
   .footer__initials {
