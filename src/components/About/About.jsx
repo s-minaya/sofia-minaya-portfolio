@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { Gamepad2, Palette, Music, Sprout, FolderGit2, Clock, Coffee, Plane, ChefHat } from "lucide-react";
-import Particles from "../ui/Particles/Particles";
+const Particles = lazy(() => import("../ui/Particles/Particles"));
 import { ParticleCard, GlobalSpotlight, useMobileDetection } from "../ui/MagicBento/MagicBento";
+import { getDefaultParticleCount, getDefaultPixelRatio, DEFAULT_PARTICLE_COLORS } from "../../config/visuals";
 import "../../styles/About/About.scss";
 import portraitGif from "../../images/portrait.gif";
 
@@ -37,6 +38,7 @@ function useCountUp(target, duration = 1800, startOnMount = false) {
 }
 
 // ── Single stat item ───────────────────────────────────────────
+ 
 function StatItem({ value, suffix, label, icon: Icon, delay = 0 }) {
   const { count, start } = useCountUp(value, 1600);
   const ref = useRef(null);
@@ -184,16 +186,18 @@ function About() {
       />
 
       <div className="about__bg" aria-hidden="true">
-        <Particles
-          particleColors={["#ffffff", "#aaaaaa", "#666666"]}
-          particleCount={800}
-          particleSpread={10}
-          speed={0.05}
-          particleBaseSize={50}
-          alphaParticles
-          disableRotation={false}
-          pixelRatio={Math.min(window.devicePixelRatio, 2)}
-        />
+        <Suspense fallback={null}>
+          <Particles
+            particleColors={DEFAULT_PARTICLE_COLORS}
+            particleCount={getDefaultParticleCount(isMobile)}
+            particleSpread={10}
+            speed={0.05}
+            particleBaseSize={50}
+            alphaParticles
+            disableRotation={false}
+            pixelRatio={getDefaultPixelRatio()}
+          />
+        </Suspense>
       </div>
 
       <div className="about__inner" ref={gridRef}>
@@ -279,6 +283,7 @@ function About() {
         >
           <span className="about-cell__label">outside of code</span>
           <ul className="about-cell__facts">
+            // eslint-disable-next-line no-unused-vars, no-unused-vars, no-unused-vars
             {FUN_FACTS.map(({ icon: Icon, label, detail }) => (
               <li key={label} className="about-cell__fact">
                 <span className="about-cell__fact-icon" aria-hidden="true">

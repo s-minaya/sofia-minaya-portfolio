@@ -1,17 +1,9 @@
 import { useEffect, useRef } from "react";
 import "../../styles/Footer/Footer.scss";
+import { MENU_ITEMS } from "../../config/navigation";
+import { CONTACT_ITEMS } from "../../config/contacts";
 
-const MENU_ITEMS = [
-  { label: "Home",  href: "#home"  },
-  { label: "Work",  href: "#work"  },
-  { label: "About", href: "#about" },
-];
-
-const CONTACT_ITEMS = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/sofia-minaya", external: true  },
-  { label: "Github",   href: "https://github.com/s-minaya",              external: true  },
-  { label: "Email",    href: "mailto:minaya.sofia@gmail.com",             external: false },
-];
+// contact items moved to config/contacts.js
 
 function Footer({ onNavigate }) {
   const footerRef = useRef(null);

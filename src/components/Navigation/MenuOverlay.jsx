@@ -1,11 +1,6 @@
 import { useEffect } from "react";
 import "../../styles/Navigation/MenuOverlay.scss";
-
-const MENU_ITEMS = [
-  { label: "Home", href: "#home" },
-  { label: "Work", href: "#work" },
-  { label: "About", href: "#about" },
-];
+import { MENU_ITEMS } from "../../config/navigation";
 
 function MenuOverlay({ isOpen, onClose, onNavigate }) {
   useEffect(() => {

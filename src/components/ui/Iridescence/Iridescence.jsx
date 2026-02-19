@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Renderer, Program, Mesh, Color, Triangle } from "ogl";
+import { getDefaultPixelRatio } from "../../../config/visuals";
 
 import "../../../styles/ui/Iridescence/Iridenscence.css";
 
@@ -73,7 +74,7 @@ export default function Iridescence({
 
     // --- Renderer (se crea solo una vez)
     if (!rendererRef.current) {
-      rendererRef.current = new Renderer({ dpr: Math.min(2, window.devicePixelRatio) });
+      rendererRef.current = new Renderer({ dpr: getDefaultPixelRatio() });
     }
 
     const renderer = rendererRef.current;

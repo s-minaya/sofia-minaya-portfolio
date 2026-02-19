@@ -1,6 +1,8 @@
-import { useRef, useState, useEffect, useCallback } from "react";
-import Particles from "../ui/Particles/Particles";
-import LogoLoop from "../ui/LogoLoop/LogoLoop";
+import { useRef, useState, useEffect, useCallback, lazy, Suspense, memo } from "react";
+import { useMobileDetection } from "../ui/MagicBento/MagicBento";
+import { getDefaultParticleCount, getDefaultPixelRatio, DEFAULT_PARTICLE_COLORS } from "../../config/visuals";
+const Particles = lazy(() => import("../ui/Particles/Particles"));
+const LogoLoop = lazy(() => import("../ui/LogoLoop/LogoLoop"));
 import "../../styles/Work/Work.scss";
 import {
   SiJavascript,
@@ -176,7 +178,7 @@ function RewindIcon({ className = "" }) {
 }
 
 // ── Project Card ───────────────────────────────────────────────
-function ProjectCard({ project, index }) {
+const ProjectCard = memo(function ProjectCard({ project, index }) {
   return (
     <a
       href={project.url}
@@ -211,32 +213,34 @@ function ProjectCard({ project, index }) {
       </div>
     </a>
   );
-}
+});
 
 // ── Tech Band ─────────────────────────────────────────────────
-function TechBand() {
+const TechBand = memo(function TechBand() {
   return (
     <div className="work__tech-band">
       <p className="work__tech-label" aria-label="Tools and technologies">
         tools &amp; technologies
       </p>
       <div className="work__tech-loop">
-        <LogoLoop
-          logos={TECH_LOGOS}
-          speed={55}
-          direction="left"
-          logoHeight={50}
-          gap={40}
-          hoverSpeed={0}
-          scaleOnHover
-          fadeOut
-          fadeOutColor="#000000"
-          ariaLabel="Tools and technologies"
-        />
+        <Suspense fallback={null}>
+          <LogoLoop
+            logos={TECH_LOGOS}
+            speed={55}
+            direction="left"
+            logoHeight={50}
+            gap={40}
+            hoverSpeed={0}
+            scaleOnHover
+            fadeOut
+            fadeOutColor="#000000"
+            ariaLabel="Tools and technologies"
+          />
+        </Suspense>
       </div>
     </div>
   );
-}
+});
 
 // ── Work Section ───────────────────────────────────────────────
 function Work() {
@@ -246,6 +250,7 @@ function Work() {
   const [isRewinding, setIsRewinding] = useState(false);
   const total = PROJECTS.length;
   const isAtEnd = activeIndex >= total - 1;
+  const isMobile = useMobileDetection();
 
   const onTrackScroll = useCallback(() => {
     const el = trackRef.current;
@@ -330,16 +335,18 @@ function Work() {
     <section className="work" id="work" aria-labelledby="work-title">
       {/* Particles background */}
       <div className="work__bg" aria-hidden="true">
-        <Particles
-          particleColors={["#ffffff", "#aaaaaa", "#666666"]}
-          particleCount={800}
-          particleSpread={10}
-          speed={0.06}
-          particleBaseSize={60}
-          alphaParticles
-          disableRotation={false}
-          pixelRatio={Math.min(window.devicePixelRatio, 2)}
-        />
+        <Suspense fallback={null}>
+          <Particles
+            particleColors={DEFAULT_PARTICLE_COLORS}
+            particleCount={getDefaultParticleCount(isMobile)}
+            particleSpread={10}
+            speed={0.06}
+            particleBaseSize={60}
+            alphaParticles
+            disableRotation={false}
+            pixelRatio={getDefaultPixelRatio()}
+          />
+        </Suspense>
       </div>
 
       {/* Inner layout */}

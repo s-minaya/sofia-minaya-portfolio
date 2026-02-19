@@ -1,5 +1,6 @@
 import "../../styles/Home/Hero.scss";
-import Iridescence from "../ui/Iridescence/Iridescence";
+import { lazy, Suspense } from "react";
+const Iridescence = lazy(() => import("../ui/Iridescence/Iridescence"));
 import ScrollIndicator from "../ui/ScrollIndicator/ScrollIndicator";
 import MenuButton from "../Navigation/MenuButton";
 import useTypewriter from "../../hooks/useTypewriter";
@@ -91,7 +92,9 @@ function Hero({ onMenuClick, workMode = false, aboutMode = false, hideScrollIndi
     <section id="home" className="hero">
       {/* Fondo iridiscente */}
       <div className="hero__bg">
-        <Iridescence color={[0.5, 0.6, 0.8]} speed={1} amplitude={0.12} />
+        <Suspense fallback={null}>
+          <Iridescence color={[0.5, 0.6, 0.8]} speed={1} amplitude={0.12} />
+        </Suspense>
       </div>
 
       {/* Navbar */}

@@ -4,10 +4,12 @@ import PageLoader from "./Loader/PageLoader";
 import MenuOverlay from "./Navigation/MenuOverlay";
 import Footer from "./Footer/Footer";
 import useMenuState from "../hooks/useMenuState";
-import Particles from "./ui/Particles/Particles";
 import Work from "./Work/Work";
 import About from "./About/About";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
+import { useMobileDetection } from "./ui/MagicBento/MagicBento";
+import { getDefaultPixelRatio, DEFAULT_PARTICLE_COLORS } from "../config/visuals";
+const Particles = lazy(() => import("./ui/Particles/Particles"));
 
 function App() {
   const { isOpen, toggle, close } = useMenuState();
@@ -16,6 +18,7 @@ function App() {
   const [aboutFirst, setAboutFirst] = useState(false);
   const workRef  = useRef(null);
   const aboutRef = useRef(null);
+  const isMobile = useMobileDetection();
 
   const handleNavigate = (target) => {
     if (isOpen) close();
@@ -66,17 +69,19 @@ function App() {
       <Footer onNavigate={handleNavigate} />
 
       <div className="menu-bg-layer">
-        <Particles
-          particleColors={["#ffffff", "#cccccc", "#999999"]}
-          particleCount={150}
-          particleSpread={8}
-          speed={0.08}
-          particleBaseSize={80}
-          moveParticlesOnHover
-          alphaParticles
-          disableRotation={false}
-          pixelRatio={Math.min(window.devicePixelRatio, 2)}
-        />
+        <Suspense fallback={null}>
+          <Particles
+            particleColors={DEFAULT_PARTICLE_COLORS}
+            particleCount={isMobile ? 80 : 150}
+            particleSpread={8}
+            speed={0.08}
+            particleBaseSize={80}
+            moveParticlesOnHover
+            alphaParticles
+            disableRotation={false}
+            pixelRatio={getDefaultPixelRatio()}
+          />
+        </Suspense>
       </div>
 
       <MenuOverlay
