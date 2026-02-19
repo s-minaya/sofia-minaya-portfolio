@@ -32,6 +32,7 @@
   --spacing-xl:  3.5rem;
   --spacing-2xl: 5rem;
   --spacing-3xl: 7rem;
+
   --transition-loader:       0.7s cubic-bezier(0.76, 0, 0.24, 1);
   --menu-transition:         1s  cubic-bezier(0.76, 0, 0.24, 1);
   --animation-cursor-blink:  0.75s step-end infinite;
@@ -42,13 +43,12 @@
   --z-header:  2;
   --z-loader:  9999;
 
-  /* ── Card base ──────────────────────────────────────────────── */
+  // ── MagicBento ───────────────────────────────────────────────
   --glow-x: 50%;
   --glow-y: 50%;
   --glow-intensity: 0;
   --glow-radius: 300px;
   --glow-color: 128, 153, 204;
-
 }
 
 html {
@@ -74,9 +74,9 @@ body {
   z-index: 1;
   min-height: 100vh;
   transition:
-    transform var(--menu-transition),
-    border-radius var(--menu-transition),
-    box-shadow var(--menu-transition);
+    transform       var(--menu-transition),
+    border-radius   var(--menu-transition),
+    box-shadow      var(--menu-transition);
   transform-origin: top left;
 
   &--menu-open {
@@ -85,7 +85,7 @@ body {
       border-radius: 20px 20px 0 0;
     }
     @media (min-width: 1200px) {
-      transform: translate(40%, 28%) rotate(-8deg);
+      transform: translate(40%, 12%) rotate(-8deg);
       border-radius: 0;
       box-shadow: -60px 60px 160px rgba(0, 0, 0, 0.9);
     }
@@ -95,4 +95,6 @@ body {
 .app-sections {
   min-height: 100vh;
   background-color: var(--color-bg-dark);
+  display: flex;
+  flex-direction: column;
 }
