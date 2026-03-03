@@ -89,7 +89,7 @@ function AnimatedStats({ isMobile }) {
 const FUN_FACTS = [
   { icon: Gamepad2, label: "Gamer",            detail: "MMORPGs, shooters & cozy games." },
   { icon: Palette,  label: "Artist",           detail: "Traditional & digital drawing, sculpture." },
-  { icon: Music,    label: "Music lover",      detail: "Jazz hop & metal, behind the drums." },
+  { icon: Music,    label: "Beat Maker",      detail: "Jazz hop & metal, behind the drums." },
   { icon: Sprout,   label: "Forever learning", detail: "Iterating on myself." },
   { icon: Plane,    label: "Japan lover",      detail: "Dreaming of visiting someday." },
   { icon: ChefHat,  label: "Home cook",        detail: "Fusing Asian & Spanish flavours." },
@@ -283,7 +283,6 @@ function About() {
         >
           <span className="about-cell__label">outside of code</span>
           <ul className="about-cell__facts">
-            // eslint-disable-next-line no-unused-vars, no-unused-vars, no-unused-vars
             {FUN_FACTS.map(({ icon: Icon, label, detail }) => (
               <li key={label} className="about-cell__fact">
                 <span className="about-cell__fact-icon" aria-hidden="true">

@@ -14,6 +14,7 @@ import {
   SiNodedotjs,
   SiExpress,
   SiMysql,
+  SiMongodb,
   SiGit,
   SiGithub,
   SiAdobephotoshop,
@@ -21,10 +22,13 @@ import {
   SiRender,
   SiSlack,
   SiPostman,
+  SiJest,
+  SiDocker,
+  SiEslint,
 } from "react-icons/si";
-import { TbTestPipe } from "react-icons/tb";
 import { MdGroups } from "react-icons/md";
 import { VscVscode } from "react-icons/vsc";
+import { TbTestPipe2, TbBrandGithub } from "react-icons/tb";
 
 // ── Tech logos for LogoLoop ────────────────────────────────────
 const TECH_LOGOS = [
@@ -37,10 +41,15 @@ const TECH_LOGOS = [
   { node: <SiNodedotjs />, title: "Node.js" },
   { node: <SiExpress />, title: "Express.js" },
   { node: <SiMysql />, title: "MySQL" },
+  { node: <SiMongodb />, title: "MongoDB" },
   { node: <SiGit />, title: "Git" },
   { node: <SiGithub />, title: "GitHub" },
   { node: <VscVscode />, title: "VS Code" },
-  { node: <TbTestPipe />, title: "Testing" },
+  { node: <SiJest />, title: "Jest" },
+  { node: <TbTestPipe2 />, title: "Playwright" },
+  { node: <SiDocker />, title: "Docker" },
+  { node: <SiEslint />, title: "ESLint" },
+  { node: <TbBrandGithub />, title: "GitHub Actions" },
   { node: <MdGroups />, title: "Agile & Scrum" },
   { node: <SiRender />, title: "Render" },
   { node: <SiAdobephotoshop />, title: "Photoshop" },
@@ -56,7 +65,7 @@ const PROJECTS = [
     description: "Interactive bat Tamagotchi game.",
     url: "https://s-minaya.github.io/bat-magotchi/",
     image: new URL('../../images/projects/bat-magotchi.jpg', import.meta.url).href,
-    tags: ["JavaScript", "Game"],
+    tags: ["JavaScript", "Game","Virtual pet"],
   },
   {
     id: "animal-crossing-api",
@@ -64,7 +73,7 @@ const PROJECTS = [
     description: "Full REST API with Node.js, Express, and MySQL.",
     url: "https://github.com/Adalab/modulo-4-evaluacion-final-bpw-s-minaya",
     image: new URL('../../images/projects/animal-crossing-api.jpg', import.meta.url).href,
-    tags: ["Node.js", "Express", "MySQL"],
+    tags: ["Node.js", "Express", "MySQL","Postman"],
   },
   {
     id: "profile-cards-demo",
@@ -72,33 +81,17 @@ const PROJECTS = [
     description: "Fullstack app — live demo + code.",
     url: "https://estherquiros.github.io/project-promo-58-modulo-3-team-2/",
     image: new URL('../../images/projects/profile-cards.jpg', import.meta.url).href,
-    tags: ["React", "Node.js", "MySQL"],
+    tags: ["React", "Node.js", "MySQL","Aiven","Render"],
   },
-  {
-    id: "pokemon",
-    title: "Design Your Pokémon Team",
-    description: "Advanced carousel and animations.",
-    url: "https://s-minaya.github.io/dise-a-tu-equipo-pokemon/",
-    image: new URL('../../images/projects/pokemon.jpg', import.meta.url).href,
-    tags: ["JavaScript", "Animations"],
+    {
+    id: "testing-con-javascript",
+    title: "JavaScript Testing Practice",
+    description: "JavaScript Full-Stack Testing Project",
+    url: "https://github.com/s-minaya/testing-con-javascript",
+    image: new URL('../../images/projects/testing-con-javascript.jpg', import.meta.url).href,
+    tags: ["MongoDB", "Testing", "Docker","CI/CD","TDD/BDD"],
   },
-  {
-    id: "memoria",
-    title: "Memory Game",
-    description: "Matching card game using React.",
-    url: "https://s-minaya.github.io/juego-de-memoria/",
-    image: new URL('../../images/projects/memoria.jpg', import.meta.url).href,
-    tags: ["React", "Game"],
-  },
-  {
-    id: "harry-potter",
-    title: "Harry Potter Characters",
-    description: "Page with filters and routing.",
-    url: "https://beta.adalab.es/modulo-3-evaluacion-final-s-minaya/",
-    image: new URL('../../images/projects/harry-potter.jpg', import.meta.url).href,
-    tags: ["React", "Routing"],
-  },
-  {
+   {
     id: "matematicas",
     title: "Math Workshop",
     description: "Interactive math workshop using JavaScript.",
@@ -107,12 +100,45 @@ const PROJECTS = [
     tags: ["JavaScript", "Educational"],
   },
   {
+    id: "pokemon",
+    title: "Design Your Pokémon Team",
+    description: "Advanced carousel and animations.",
+    url: "https://s-minaya.github.io/dise-a-tu-equipo-pokemon/",
+    image: new URL('../../images/projects/pokemon.jpg', import.meta.url).href,
+    tags: ["JavaScript", "Animations","Practice project"],
+  },
+  {
+    id: "memoria",
+    title: "Memory Game",
+    description: "Matching card game using React.",
+    url: "https://s-minaya.github.io/juego-de-memoria/",
+    image: new URL('../../images/projects/memoria.jpg', import.meta.url).href,
+    tags: ["React", "Game","Frontend"],
+  },
+  {
+    id: "harry-potter",
+    title: "Harry Potter Characters",
+    description: "Page with filters and routing.",
+    url: "https://beta.adalab.es/modulo-3-evaluacion-final-s-minaya/",
+    image: new URL('../../images/projects/harry-potter.jpg', import.meta.url).href,
+    tags: ["React", "Routing", "API","Vite"],
+  },
+   {
+    id: "paises",
+    title: "Countries Explorer",
+    description: "First stepts with React.",
+    url: "https://s-minaya.github.io/Listado-de-paises/",
+    image: new URL('../../images/projects/paises.jpg', import.meta.url).href,
+    tags: ["React", "API", "Filters"],
+  },
+ 
+  {
     id: "tienda",
     title: "Virtual Store",
     description: "First interaction with APIs.",
     url: "https://beta.adalab.es/modulo-2-evaluacion-final-s-minaya/",
     image: new URL('../../images/projects/tienda-virtual.jpg', import.meta.url).href,
-    tags: ["JavaScript", "API"],
+    tags: ["JavaScript", "API", "Evaluation Project"],
   },
   {
     id: "piedra-papel",
@@ -120,7 +146,7 @@ const PROJECTS = [
     description: "Getting started with JavaScript.",
     url: "https://beta.adalab.es/modulo-2-evaluacion-intermedia-s-minaya/",
     image: new URL('../../images/projects/piedra-papel-tijera.jpg', import.meta.url).href,
-    tags: ["JavaScript", "Game"],
+    tags: ["JavaScript", "Game", "Evaluation Project"],
   },
   {
     id: "adatech",
@@ -128,7 +154,39 @@ const PROJECTS = [
     description: "First team project.",
     url: "https://s-minaya.github.io/proyect-promo-58-module-1-team-1/",
     image: new URL('../../images/projects/adatech.jpg', import.meta.url).href,
-    tags: ["HTML", "CSS", "Team"],
+    tags: ["HTML", "CSS", "Scrum", "Agile"],
+  },
+   {
+    id: "modulo-1",
+    title: "Layout Design Exam",
+    description: "First Academy Exam Passed.",
+    url: "https://beta.adalab.es/modulo-1-evaluacion-final-s-minaya/",
+    image: new URL('../../images/projects/modulo-1.jpg', import.meta.url).href,
+    tags: ["Sass","BEM", "Vite", "Zeplin"],
+  },
+    {
+    id: "login",
+    title: "Login social media",
+    description: "First succesfull JavaScript project.",
+    url: "https://s-minaya.github.io/log-in-red-social/",
+    image: new URL('../../images/projects/login.jpg', import.meta.url).href,
+    tags: ["JavaScript", "Form", "Code practice"],
+  },
+    {
+    id: "overwatch",
+    title: "Overwatch form",
+    description: "An Overwatch-themed form",
+    url: "https://s-minaya.github.io/Formulario-OW.github.io/",
+    image: new URL('../../images/projects/overwatch.jpg', import.meta.url).href,
+    tags: ["HTML", "CSS", "Code practice", "Form"],
+  },
+     {
+    id: "jardin",
+    title: "The Garden of Earthly Delights",
+    description: "A failed JavaScript attempt",
+    url: "https://s-minaya.github.io/el-jardin-de-las-delicias/",
+    image: new URL('../../images/projects/jardin.jpg', import.meta.url).href,
+    tags: ["JavaScript", "Code experiment", "Failed Attempt"],
   },
   {
     id: "mefis",
@@ -136,7 +194,7 @@ const PROJECTS = [
     description: "My very first code! Inspired by my cat.",
     url: "https://s-minaya.github.io/Mefis/",
     image: new URL('../../images/projects/mefis.jpg', import.meta.url).href,
-    tags: ["HTML", "First project"],
+    tags: ["HTML", "First project", "Code Written in README"],
   },
 ];
 

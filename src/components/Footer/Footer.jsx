@@ -4,48 +4,46 @@ import { MENU_ITEMS } from "../../config/navigation";
 import { CONTACT_ITEMS } from "../../config/contacts";
 
 // contact items moved to config/contacts.js
-
 function Footer({ onNavigate }) {
   const footerRef = useRef(null);
 
-useEffect(() => {
-  const footer = footerRef.current;
-  if (!footer) return;
+  useEffect(() => {
+    const footer = footerRef.current;
+    if (!footer) return;
 
-  // Estado inicial invisible y estrecho
-  footer.style.opacity = "0";
-  footer.style.width = getStartWidth();
+    // Estado inicial invisible y estrecho
+    footer.style.opacity = "0";
+    footer.style.width = getStartWidth();
 
-  function getStartWidth() {
-    const w = window.innerWidth;
-    if (w < 768)  return "85vw";
-    if (w < 1200) return "55vw";
-    return "35vw";
-  }
+    function getStartWidth() {
+      const w = window.innerWidth;
+      if (w < 768)  return "85vw";
+      if (w < 1200) return "55vw";
+      return "35vw";
+    }
 
-  const update = () => {
-    const scrollY   = window.scrollY;
-    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    const ZONE      = 600;
-    const start     = Math.max(0, maxScroll - ZONE);
-    const progress  = Math.min(1, Math.max(0, (scrollY - start) / ZONE));
+    const update = () => {
+      const scrollY   = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const ZONE      = 600;
+      const start     = Math.max(0, maxScroll - ZONE);
+      const progress  = Math.min(1, Math.max(0, (scrollY - start) / ZONE));
+      const w = window.innerWidth;
+      const startVw = w < 768 ? 85 : w < 1200 ? 55 : 35;
+      const currentVw = startVw + (100 - startVw) * progress;
+      footer.style.opacity = progress;
+      footer.style.width   = `${currentVw}vw`;
+    };
 
-    const w = window.innerWidth;
-    const startVw = w < 768 ? 85 : w < 1200 ? 55 : 35;
-    const currentVw = startVw + (100 - startVw) * progress;
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    update();
 
-    footer.style.opacity = progress;
-    footer.style.width   = `${currentVw}vw`;
-  };
-
-  window.addEventListener("scroll", update, { passive: true });
-  window.addEventListener("resize", update, { passive: true }); // recalcula si cambia viewport
-  update();
-  return () => {
-    window.removeEventListener("scroll", update);
-    window.removeEventListener("resize", update);
-  };
-}, []);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
 
   const handleMenuClick = (e, href) => {
     e.preventDefault();
@@ -98,7 +96,17 @@ useEffect(() => {
       <div className="footer__back">
         <span className="footer__back-label">Back to top</span>
         <button className="footer__back-btn" onClick={handleBackToTop} aria-label="Volver al inicio">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+            width="80%"
+            height="80%"
+          >
             <path d="M12 19V5M5 12l7-7 7 7" />
           </svg>
         </button>
