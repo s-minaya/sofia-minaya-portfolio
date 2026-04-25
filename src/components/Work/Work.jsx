@@ -6,9 +6,11 @@ const LogoLoop = lazy(() => import("../ui/LogoLoop/LogoLoop"));
 import "../../styles/Work/Work.scss";
 import {
   SiJavascript,
+  SiTypescript,
   SiHtml5,
   SiCss3,
   SiSass,
+  SiTailwindcss,
   SiReact,
   SiVite,
   SiNodedotjs,
@@ -23,6 +25,9 @@ import {
   SiSlack,
   SiPostman,
   SiJest,
+  SiVitest,
+  SiMockserviceworker,
+  SiTestinglibrary,
   SiDocker,
   SiEslint,
 } from "react-icons/si";
@@ -33,9 +38,11 @@ import { TbTestPipe2, TbBrandGithub } from "react-icons/tb";
 // ── Tech logos for LogoLoop ────────────────────────────────────
 const TECH_LOGOS = [
   { node: <SiJavascript />, title: "JavaScript (ES6+)" },
+  { node: <SiTypescript />, title: "TypeScript" },
   { node: <SiHtml5 />, title: "HTML5" },
   { node: <SiCss3 />, title: "CSS3" },
   { node: <SiSass />, title: "Sass" },
+  { node: <SiTailwindcss />, title: "Tailwind CSS" },
   { node: <SiReact />, title: "React" },
   { node: <SiVite />, title: "Vite" },
   { node: <SiNodedotjs />, title: "Node.js" },
@@ -46,6 +53,9 @@ const TECH_LOGOS = [
   { node: <SiGithub />, title: "GitHub" },
   { node: <VscVscode />, title: "VS Code" },
   { node: <SiJest />, title: "Jest" },
+  { node: <SiVitest />, title: "Vitest" },
+  { node: <SiMockserviceworker />, title: "Mock Service Worker" },
+  { node: <SiTestinglibrary />, title: "Testing Library" },
   { node: <TbTestPipe2 />, title: "Playwright" },
   { node: <SiDocker />, title: "Docker" },
   { node: <SiEslint />, title: "ESLint" },
@@ -59,10 +69,30 @@ const TECH_LOGOS = [
 ];
 
 const PROJECTS = [
+   {
+    id: "horoscope",
+    title: "Dark Horoscope",
+    url: "https://s-minaya.github.io/horoscope/",
+    image: new URL('../../images/projects/horoscope.png', import.meta.url).href,
+    tags: ["JavaScript","Tailwind CSS", "Vite", "Code practice"],
+  },
+   {
+    id: "minaya-travel",
+    title: "Minaya Travel",
+    url: "https://s-minaya.github.io/minaya-travel/",
+    image: new URL('../../images/projects/minaya-travel.png', import.meta.url).href,
+    tags: ["React","Tailwind CSS", "Vite",],
+  },
+    {
+    id: "react-testing-library",
+    title: "React Testing Library",
+    url: "https://github.com/s-minaya/react-testing-library",
+    image: new URL('../../images/projects/react-testing-library.png', import.meta.url).href,
+    tags: ["Typescript", "MSW","Vitest","TDT", "TDD"],
+  },
   {
     id: "bat-magotchi",
     title: "Bat-Magotchi",
-    description: "Interactive bat Tamagotchi game.",
     url: "https://s-minaya.github.io/bat-magotchi/",
     image: new URL('../../images/projects/bat-magotchi.jpg', import.meta.url).href,
     tags: ["JavaScript", "Game","Virtual pet"],
@@ -70,7 +100,6 @@ const PROJECTS = [
   {
     id: "animal-crossing-api",
     title: "Animal Crossing API",
-    description: "Full REST API with Node.js, Express, and MySQL.",
     url: "https://github.com/Adalab/modulo-4-evaluacion-final-bpw-s-minaya",
     image: new URL('../../images/projects/animal-crossing-api.jpg', import.meta.url).href,
     tags: ["Node.js", "Express", "MySQL","Postman"],
@@ -78,7 +107,6 @@ const PROJECTS = [
   {
     id: "profile-cards-demo",
     title: "Awesome Profile Cards",
-    description: "Fullstack app — live demo + code.",
     url: "https://estherquiros.github.io/project-promo-58-modulo-3-team-2/",
     image: new URL('../../images/projects/profile-cards.jpg', import.meta.url).href,
     tags: ["React", "Node.js", "MySQL","Aiven","Render"],
@@ -86,7 +114,6 @@ const PROJECTS = [
     {
     id: "testing-con-javascript",
     title: "JavaScript Testing Practice",
-    description: "JavaScript Full-Stack Testing Project",
     url: "https://github.com/s-minaya/testing-con-javascript",
     image: new URL('../../images/projects/testing-con-javascript.jpg', import.meta.url).href,
     tags: ["MongoDB", "Testing", "Docker","CI/CD","TDD/BDD"],
@@ -94,7 +121,6 @@ const PROJECTS = [
    {
     id: "matematicas",
     title: "Math Workshop",
-    description: "Interactive math workshop using JavaScript.",
     url: "https://s-minaya.github.io/Matematicas-con-JavaScript/",
     image: new URL('../../images/projects/matematicas.jpg', import.meta.url).href,
     tags: ["JavaScript", "Educational"],
@@ -102,7 +128,6 @@ const PROJECTS = [
   {
     id: "pokemon",
     title: "Design Your Pokémon Team",
-    description: "Advanced carousel and animations.",
     url: "https://s-minaya.github.io/dise-a-tu-equipo-pokemon/",
     image: new URL('../../images/projects/pokemon.jpg', import.meta.url).href,
     tags: ["JavaScript", "Animations","Practice project"],
@@ -110,7 +135,6 @@ const PROJECTS = [
   {
     id: "memoria",
     title: "Memory Game",
-    description: "Matching card game using React.",
     url: "https://s-minaya.github.io/juego-de-memoria/",
     image: new URL('../../images/projects/memoria.jpg', import.meta.url).href,
     tags: ["React", "Game","Frontend"],
@@ -118,7 +142,6 @@ const PROJECTS = [
   {
     id: "harry-potter",
     title: "Harry Potter Characters",
-    description: "Page with filters and routing.",
     url: "https://beta.adalab.es/modulo-3-evaluacion-final-s-minaya/",
     image: new URL('../../images/projects/harry-potter.jpg', import.meta.url).href,
     tags: ["React", "Routing", "API","Vite"],
@@ -126,7 +149,6 @@ const PROJECTS = [
    {
     id: "paises",
     title: "Countries Explorer",
-    description: "First stepts with React.",
     url: "https://s-minaya.github.io/Listado-de-paises/",
     image: new URL('../../images/projects/paises.jpg', import.meta.url).href,
     tags: ["React", "API", "Filters"],
@@ -135,7 +157,6 @@ const PROJECTS = [
   {
     id: "tienda",
     title: "Virtual Store",
-    description: "First interaction with APIs.",
     url: "https://beta.adalab.es/modulo-2-evaluacion-final-s-minaya/",
     image: new URL('../../images/projects/tienda-virtual.jpg', import.meta.url).href,
     tags: ["JavaScript", "API", "Evaluation Project"],
@@ -143,7 +164,6 @@ const PROJECTS = [
   {
     id: "piedra-papel",
     title: "Rock Paper Scissors",
-    description: "Getting started with JavaScript.",
     url: "https://beta.adalab.es/modulo-2-evaluacion-intermedia-s-minaya/",
     image: new URL('../../images/projects/piedra-papel-tijera.jpg', import.meta.url).href,
     tags: ["JavaScript", "Game", "Evaluation Project"],
@@ -151,7 +171,6 @@ const PROJECTS = [
   {
     id: "adatech",
     title: "Adatech",
-    description: "First team project.",
     url: "https://s-minaya.github.io/proyect-promo-58-module-1-team-1/",
     image: new URL('../../images/projects/adatech.jpg', import.meta.url).href,
     tags: ["HTML", "CSS", "Scrum", "Agile"],
@@ -159,7 +178,6 @@ const PROJECTS = [
    {
     id: "modulo-1",
     title: "Layout Design Exam",
-    description: "First Academy Exam Passed.",
     url: "https://beta.adalab.es/modulo-1-evaluacion-final-s-minaya/",
     image: new URL('../../images/projects/modulo-1.jpg', import.meta.url).href,
     tags: ["Sass","BEM", "Vite", "Zeplin"],
@@ -167,7 +185,6 @@ const PROJECTS = [
     {
     id: "login",
     title: "Login social media",
-    description: "First succesfull JavaScript project.",
     url: "https://s-minaya.github.io/log-in-red-social/",
     image: new URL('../../images/projects/login.jpg', import.meta.url).href,
     tags: ["JavaScript", "Form", "Code practice"],
@@ -175,7 +192,6 @@ const PROJECTS = [
     {
     id: "overwatch",
     title: "Overwatch form",
-    description: "An Overwatch-themed form",
     url: "https://s-minaya.github.io/Formulario-OW.github.io/",
     image: new URL('../../images/projects/overwatch.jpg', import.meta.url).href,
     tags: ["HTML", "CSS", "Code practice", "Form"],
@@ -183,7 +199,6 @@ const PROJECTS = [
      {
     id: "jardin",
     title: "The Garden of Earthly Delights",
-    description: "A failed JavaScript attempt",
     url: "https://s-minaya.github.io/el-jardin-de-las-delicias/",
     image: new URL('../../images/projects/jardin.jpg', import.meta.url).href,
     tags: ["JavaScript", "Code experiment", "Failed Attempt"],
@@ -191,7 +206,6 @@ const PROJECTS = [
   {
     id: "mefis",
     title: "Mefis",
-    description: "My very first code! Inspired by my cat.",
     url: "https://s-minaya.github.io/Mefis/",
     image: new URL('../../images/projects/mefis.jpg', import.meta.url).href,
     tags: ["HTML", "First project", "Code Written in README"],
