@@ -2,10 +2,11 @@
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { Gamepad2, Palette, Music, Sprout, FolderGit2, Clock, Coffee, Plane, ChefHat } from "lucide-react";
 const Particles = lazy(() => import("../ui/Particles/Particles"));
-import { ParticleCard, GlobalSpotlight, useMobileDetection } from "../ui/MagicBento/MagicBento";
+import { ParticleCard, GlobalSpotlight } from "../ui/MagicBento/MagicBento";
+import { useMobileDetection } from "../../hooks/useMobileDetection";
 import { getDefaultParticleCount, getDefaultPixelRatio, DEFAULT_PARTICLE_COLORS } from "../../config/visuals";
 import "../../styles/About/About.scss";
-import portraitGif from "../../images/portrait.gif";
+import portraitGif from "../../images/portrait.webp";
 
 // ── Stats data ─────────────────────────────────────────────────
 const STATS = [
@@ -145,7 +146,6 @@ function VinylRecord() {
       target="_blank"
       rel="noopener noreferrer"
       className="about-cell about-cell--vinyl magic-bento-card magic-bento-card--border-glow"
-      aria-label="Open coding playlist on Spotify"
     >
       <div className="vinyl__disc" ref={discRef} aria-hidden="true">
         <div className="vinyl__grooves">
@@ -218,6 +218,8 @@ function About() {
               alt="Pixel art self-portrait of Sofía Minaya"
               className="about-cell__portrait-img"
               draggable="false"
+              loading="lazy"
+              decoding="async"
             />
           </div>
 

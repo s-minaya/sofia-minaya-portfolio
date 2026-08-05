@@ -292,22 +292,34 @@
 }
 
 .work__dot {
-  width: 6px;
-  height: 6px;
+  position: relative;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: none;
-  background: rgba(255, 255, 255, 0.25);
+  background: transparent;
   cursor: pointer;
   padding: 0;
-  transition: background 0.3s ease, width 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  &--active {
+  &::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    transition: background 0.3s ease, width 0.3s ease, border-radius 0.3s ease;
+  }
+
+  &--active::before {
     background: var(--color-text-primary);
     width: 20px;
     border-radius: 10px;
   }
 
-  &:hover:not(.work__dot--active) {
+  &:hover:not(.work__dot--active)::before {
     background: rgba(255, 255, 255, 0.55);
   }
 }

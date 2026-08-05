@@ -4,12 +4,12 @@ import PageLoader from "./Loader/PageLoader";
 import MenuOverlay from "./Navigation/MenuOverlay";
 import Footer from "./Footer/Footer";
 import useMenuState from "../hooks/useMenuState";
-import Work from "./Work/Work";
-import About from "./About/About";
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
-import { useMobileDetection } from "./ui/MagicBento/MagicBento";
+import { useMobileDetection } from "../hooks/useMobileDetection";
 import { getDefaultPixelRatio, DEFAULT_PARTICLE_COLORS } from "../config/visuals";
 const Particles = lazy(() => import("./ui/Particles/Particles"));
+const Work = lazy(() => import("./Work/Work"));
+const About = lazy(() => import("./About/About"));
 
 function App() {
   const { isOpen, toggle, close } = useMenuState();
@@ -100,12 +100,14 @@ function App() {
         />
 
         <div className="app-sections">
-          <section id="work" ref={workRef} style={{ order: 0 }}>
-            <Work />
-          </section>
-          <section id="about" ref={aboutRef} style={{ order: aboutFirst ? -1 : 1 }}>
-            <About />
-          </section>
+          <Suspense fallback={null}>
+            <section id="work" ref={workRef} style={{ order: 0 }}>
+              <Work />
+            </section>
+            <section id="about" ref={aboutRef} style={{ order: aboutFirst ? -1 : 1 }}>
+              <About />
+            </section>
+          </Suspense>
         </div>
       </div>
     </>

@@ -235,7 +235,7 @@ export const LogoLoop = memo(
         }
         const isNodeItem = 'node' in item;
         const content = isNodeItem ? (
-          <span className="logoloop__node" aria-hidden={!!item.href && !item.ariaLabel}>
+          <span className="logoloop__node" aria-hidden="true">
             {item.node}
           </span>
         ) : (

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 const FULL_TEXT = "Sofía Minaya.";
-const TYPING_SPEED = 100; // ms por letra
-const PAUSE_AFTER = 900; // ms de pausa tras terminar de escribir
-const EXIT_TOTAL = 1200; // ms que dura toda la animación de salida
+const TYPING_SPEED = 35; // ms por letra
+const PAUSE_AFTER = 300; // ms de pausa tras terminar de escribir
+const EXIT_TOTAL = 1000; // ms que dura toda la animación de salida (>= delay+transición de bloques)
 
 function usePageLoader() {
   const [displayedText, setDisplayedText] = useState("");

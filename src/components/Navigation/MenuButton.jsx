@@ -5,7 +5,7 @@ function MenuButton({ onClick, isMenuOpen }) {
     <button
       className="menu-button"
       onClick={onClick}
-      aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+      aria-label={isMenuOpen ? "Cerrar menú · Menu" : "Abrir menú · Menu"}
       aria-expanded={isMenuOpen}
     >
       <span className="menu-button__icon" aria-hidden="true">
