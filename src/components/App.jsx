@@ -16,6 +16,7 @@ function App() {
   const [activeSection, setActiveSection] = useState("home");
   const [hideScrollIndicator, setHideScrollIndicator] = useState(false);
   const [aboutFirst, setAboutFirst] = useState(false);
+  const [backgroundReady, setBackgroundReady] = useState(false);
   const workRef  = useRef(null);
   const aboutRef = useRef(null);
   const isMobile = useMobileDetection();
@@ -61,6 +62,36 @@ function App() {
     window.scrollTo(0, 0);
   }, []);
 
+  // Monta las partículas de fondo cuando el navegador quede desocupado (o como
+  // máximo tras 1.5 s) para no competir con el primer pintado ni con el loader.
+  useEffect(() => {
+    let disposed = false;
+    const start = () => {
+      if (!disposed) setBackgroundReady(true);
+    };
+    const fallback = setTimeout(start, 1500);
+    const scheduleIdle = () => {
+      if (window.requestIdleCallback) {
+        window.requestIdleCallback(() => {
+          clearTimeout(fallback);
+          start();
+        });
+      } else {
+        setTimeout(start, 300);
+      }
+    };
+    if (document.readyState === "complete") {
+      scheduleIdle();
+    } else {
+      window.addEventListener("load", scheduleIdle, { once: true });
+    }
+    return () => {
+      disposed = true;
+      clearTimeout(fallback);
+      window.removeEventListener("load", scheduleIdle);
+    };
+  }, []);
+
   const containerClass = "app-container" + (isOpen ? " app-container--menu-open" : "");
 
   return (
@@ -69,19 +100,21 @@ function App() {
       <Footer onNavigate={handleNavigate} />
 
       <div className="menu-bg-layer">
-        <Suspense fallback={null}>
-          <Particles
-            particleColors={DEFAULT_PARTICLE_COLORS}
-            particleCount={isMobile ? 80 : 150}
-            particleSpread={8}
-            speed={0.08}
-            particleBaseSize={80}
-            moveParticlesOnHover
-            alphaParticles
-            disableRotation={false}
-            pixelRatio={getDefaultPixelRatio()}
-          />
-        </Suspense>
+        {backgroundReady && (
+          <Suspense fallback={null}>
+            <Particles
+              particleColors={DEFAULT_PARTICLE_COLORS}
+              particleCount={isMobile ? 80 : 150}
+              particleSpread={8}
+              speed={0.08}
+              particleBaseSize={80}
+              moveParticlesOnHover
+              alphaParticles
+              disableRotation={false}
+              pixelRatio={getDefaultPixelRatio()}
+            />
+          </Suspense>
+        )}
       </div>
 
       <MenuOverlay
