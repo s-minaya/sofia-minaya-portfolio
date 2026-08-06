@@ -3,7 +3,7 @@ import { useMobileDetection } from "../../hooks/useMobileDetection";
 import { getDefaultParticleCount, getDefaultPixelRatio, DEFAULT_PARTICLE_COLORS } from "../../config/visuals";
 const Particles = lazy(() => import("../ui/Particles/Particles"));
 const LogoLoop = lazy(() => import("../ui/LogoLoop/LogoLoop"));
-import "../../styles/Work/Work.scss";
+import "./Work.scss";
 import {
   SiJavascript,
   SiTypescript,

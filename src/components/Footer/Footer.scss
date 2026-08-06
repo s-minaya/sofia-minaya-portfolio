@@ -1,4 +1,11 @@
+@use "../../styles/breakpoints" as bp;
+
 // ── Footer ────────────────────────────────────────────────────
+// Mobile-first: la base son los valores de móvil; cada @media
+// reafirma el estado completo de su zona (no solo el delta) para
+// que .footer__initials/__back/__cols, que cambian de grid-area a
+// disposición normal, no dependan de que el navegador "arrastre"
+// nada de la zona anterior.
 .footer {
   position: fixed;
   bottom: 0;
@@ -9,39 +16,48 @@
   opacity: 0;
   transition: width 0.15s ease;
   display: grid;
-  grid-template-columns: 1fr auto auto;
-  align-items: center;
-  gap: 0 var(--spacing-2xl);
-  padding: var(--spacing-xl) var(--spacing-xl);
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "initials back"
+    "cols     cols";
+  align-items: start;
+  gap: var(--spacing-md) var(--spacing-md);
+  min-height: unset;
+  width: 100vw;
+  padding: var(--spacing-lg) var(--spacing-md);
   padding-top: 5rem;
-  min-height: 220px;
 
   // ── Iniciales ──────────────────────────────────────────────
   &__initials {
+    grid-area: initials;
     font-family: var(--font-main);
-    font-size: clamp(5rem, 12vw, 11rem);
+    font-size: clamp(3.5rem, 12vw, 5.5rem);
     font-weight: var(--font-weight-semibold);
     color: var(--color-bg-dark);
     letter-spacing: -0.04em;
     line-height: 1;
-    align-self: flex-end;
-    padding-bottom: var(--spacing-sm);
+    align-self: center;
+    padding-bottom: 0;
     user-select: none;
   }
 
   // ── Columnas nav/contact ────────────────────────────────────
   &__cols {
+    grid-area: cols;
     display: flex;
-    gap: var(--spacing-2xl);
-    align-items: center;
-    align-self: center;
+    gap: var(--spacing-xl);
+    align-items: flex-start;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: var(--spacing-md);
   }
 
   &__col {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
-    min-width: 110px;
+    min-width: 0;
+    flex: 1;
 
     &-title {
       font-family: var(--font-main);
@@ -113,10 +129,11 @@
 
   // ── Back to top ───────────────────────────────────────────
   &__back {
+    grid-area: back;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.6rem;
     align-self: center;
 
     &-label {
@@ -169,62 +186,61 @@
     100% { transform: translateY(0);     opacity: 1; }
   }
 
-  // ── Mobile ────────────────────────────────────────────────
-  @media (max-width: 767px) {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
-    grid-template-areas:
-      "initials back"
-      "cols     cols";
-    gap: var(--spacing-md) var(--spacing-md);
-    min-height: unset;
-    align-items: start;
+  // ── Tablet (768–1023px) ─────────────────────────────────────
+  // Deja de usar grid-template-areas: vuelve a la disposición
+  // normal de 3 columnas, así que hay que resetear explícitamente
+  // todo lo que solo tenía sentido en el layout de móvil.
+  @media (min-width: bp.$md) {
+    grid-template-columns: 1fr auto auto;
+    grid-template-rows: none;
+    grid-template-areas: none;
+    align-items: center;
+    gap: 0 var(--spacing-xl);
+    min-height: 220px;
     width: 100vw;
-    padding: var(--spacing-lg) var(--spacing-md);
-    padding-top: 5rem;
+    padding: var(--spacing-xl) var(--spacing-xl);
 
     &__initials {
-      grid-area: initials;
-      font-size: clamp(3.5rem, 12vw, 5.5rem);
-      align-self: center;
-      padding-bottom: 0;
+      grid-area: auto;
+      font-size: clamp(5rem, 10vw, 8rem);
+      align-self: flex-end;
+      padding-bottom: var(--spacing-sm);
     }
 
     &__back {
-      grid-area: back;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.6rem;
-      align-self: center;
+      grid-area: auto;
+      gap: 0.8rem;
     }
 
     &__cols {
-      grid-area: cols;
-      gap: var(--spacing-xl);
-      align-items: flex-start;
-      border-top: 1px solid rgba(0, 0, 0, 0.08);
-      padding-top: var(--spacing-md);
+      grid-area: auto;
+      gap: var(--spacing-2xl);
+      align-items: center;
+      border-top: none;
+      padding-top: 0;
     }
 
-    &__col { min-width: 0; flex: 1; }
+    &__col { min-width: 110px; flex: initial; }
   }
 
-  // ── Tablet ────────────────────────────────────────────────
-  @media (min-width: 768px) and (max-width: 1023px) {
-    grid-template-columns: 1fr auto auto;
-    gap: 0 var(--spacing-xl);
+  // ── 1024–1199px ─────────────────────────────────────────────
+  // Aquí el diseño original no define un bloque propio: cae en
+  // los valores por defecto de esta hoja (el mismo tamaño que el
+  // resto de la sección, sin forzar 100vw). Se mantiene igual.
+  @media (min-width: bp.$lg) {
+    gap: 0 var(--spacing-2xl);
     padding: var(--spacing-xl) var(--spacing-xl);
-    width: 100vw;
+    padding-top: 5rem;
+    width: auto;
 
-    &__initials { font-size: clamp(5rem, 10vw, 8rem); }
+    &__initials { font-size: clamp(5rem, 12vw, 11rem); }
   }
 
   // ── Desktop ───────────────────────────────────────────────
-  @media (min-width: 1200px) {
-    padding: var(--spacing-xl) var(--spacing-3xl);
+  @media (min-width: bp.$xl) {
     gap: 0 var(--spacing-3xl);
     width: 100vw;
+    padding: var(--spacing-xl) var(--spacing-3xl);
 
     &__initials { font-size: clamp(7rem, 10vw, 11rem); }
   }

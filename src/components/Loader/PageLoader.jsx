@@ -1,4 +1,4 @@
-import "../../styles/Loader/PageLoader.scss";
+import "./PageLoader.scss";
 import usePageLoader from "../../hooks/usePageLoader";
 
 function PageLoader() {

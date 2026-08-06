@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import "../../styles/Navigation/MenuOverlay.scss";
+import "./MenuOverlay.scss";
 import { MENU_ITEMS } from "../../config/navigation";
 
 function MenuOverlay({ isOpen, onClose, onNavigate }) {

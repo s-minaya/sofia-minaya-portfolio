@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Renderer, Program, Mesh, Color, Triangle } from "ogl";
 import { getDefaultPixelRatio } from "../../../config/visuals";
 
-import "../../../styles/ui/Iridescence/Iridenscence.css";
+import "./Iridescence.css";
 
 const vertexShader = `
 attribute vec2 uv;

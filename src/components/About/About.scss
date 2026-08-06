@@ -1,3 +1,5 @@
+@use "../../styles/breakpoints" as bp;
+
 // ── About Section ────────────────────────────────────────────────────────────
 .about {
   position: relative;
@@ -618,7 +620,7 @@
 // RESPONSIVE
 // ═══════════════════════════════════════════════════════════════
 
-@media (min-width: 640px) {
+@media (min-width: bp.$sm) {
   .about__inner {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
@@ -635,7 +637,7 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: bp.$lg) {
   .about__inner {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto auto auto;
@@ -675,7 +677,7 @@
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: bp.$xxl) {
   .about__inner {
     gap: 2rem;
     padding: var(--spacing-2xl) var(--spacing-3xl);

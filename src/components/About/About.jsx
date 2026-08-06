@@ -5,7 +5,7 @@ const Particles = lazy(() => import("../ui/Particles/Particles"));
 import { ParticleCard, GlobalSpotlight } from "../ui/MagicBento/MagicBento";
 import { useMobileDetection } from "../../hooks/useMobileDetection";
 import { getDefaultParticleCount, getDefaultPixelRatio, DEFAULT_PARTICLE_COLORS } from "../../config/visuals";
-import "../../styles/About/About.scss";
+import "./About.scss";
 import portraitGif from "../../images/portrait.webp";
 
 // ── Stats data ─────────────────────────────────────────────────

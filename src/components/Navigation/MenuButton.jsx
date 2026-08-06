@@ -1,4 +1,4 @@
-import "../../styles/Navigation/MenuButton.scss";
+import "./MenuButton.scss";
 
 function MenuButton({ onClick, isMenuOpen }) {
   return (

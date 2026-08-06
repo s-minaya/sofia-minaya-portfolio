@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import "../../styles/Footer/Footer.scss";
+import "./Footer.scss";
 import { MENU_ITEMS } from "../../config/navigation";
 import { CONTACT_ITEMS } from "../../config/contacts";
 

@@ -1,3 +1,5 @@
+@use "../../styles/breakpoints" as bp;
+
 .hero {
   position: relative;
   width: 100vw;
@@ -41,7 +43,11 @@
     line-height: 1.05;
     margin-bottom: var(--spacing-sm);
     font-weight: var(--font-weight-semibold);
-    font-size: var(--font-size-hero-title);
+    font-size: 3rem; // móviles muy pequeños (<375px); ver @media más abajo
+
+    @media (min-width: bp.$xs) {
+      font-size: var(--font-size-hero-title);
+    }
   }
 
   &__title-line {
@@ -51,11 +57,15 @@
   }
 
   &__subtitle {
-    font-size: var(--font-size-hero-subtitle);
+    font-size: 1.6rem; // móviles muy pequeños (<375px); ver @media más abajo
     font-weight: var(--font-weight-medium);
     line-height: 1.1;
     margin-bottom: 1.4rem;
     color: var(--color-text-muted);
+
+    @media (min-width: bp.$xs) {
+      font-size: var(--font-size-hero-subtitle);
+    }
   }
 
   &__subtitle-fixed {
@@ -105,12 +115,7 @@
 }
 
 // ── Breakpoints ────────────────────────────────────────────────
-@media (max-width: 374px) {
-  .hero__title    { font-size: 3rem; }
-  .hero__subtitle { font-size: 1.6rem; }
-}
-
-@media (min-width: 768px) {
+@media (min-width: bp.$md) {
   .hero__content {
     padding: 0 var(--spacing-xl);
     padding-top: var(--spacing-2xl);
@@ -118,7 +123,7 @@
   .hero__scroll { bottom: 2.5rem; }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: bp.$xl) {
   .hero__content {
     padding: 0 var(--spacing-2xl);
     padding-top: var(--spacing-2xl);
@@ -126,7 +131,7 @@
   .hero__scroll { bottom: 3rem; }
 }
 
-@media (min-width: 1600px) {
+@media (min-width: bp.$xxxl) {
   .hero__content {
     padding: 0 var(--spacing-3xl);
     padding-top: var(--spacing-3xl);

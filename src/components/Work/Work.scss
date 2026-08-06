@@ -1,3 +1,5 @@
+@use "../../styles/breakpoints" as bp;
+
 // ── Work Section ─────────────────────────────────────────────────────────────
 .work {
   position: relative;
@@ -361,7 +363,7 @@
 }
 
 // ── Breakpoints ───────────────────────────────────────────────
-@media (min-width: 640px) {
+@media (min-width: bp.$sm) {
   .work-card {
     flex: 0 0 clamp(280px, 45vw, 380px);
   }
@@ -372,7 +374,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: bp.$md) {
   .work__inner {
     padding: var(--spacing-2xl) var(--spacing-xl);
   }
@@ -392,7 +394,7 @@
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: bp.$xl) {
   .work__inner {
     padding: var(--spacing-2xl) var(--spacing-2xl);
     gap: var(--spacing-xl);
@@ -409,7 +411,7 @@
   }
 }
 
-@media (min-width: 1600px) {
+@media (min-width: bp.$xxxl) {
   .work__inner {
     padding: var(--spacing-3xl) var(--spacing-3xl);
   }

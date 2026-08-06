@@ -1,4 +1,4 @@
-import "../../../styles/ui/ScrollIndicator/ScrollIndicator.scss";
+import "./ScrollIndicator.scss";
 
 function ScrollIndicator() {
   return (

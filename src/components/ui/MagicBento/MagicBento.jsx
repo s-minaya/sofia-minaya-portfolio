@@ -1,7 +1,7 @@
 
 import { useRef, useEffect, useCallback, useState } from 'react';
 import { gsap } from 'gsap';
-import '../../../styles/ui/MagicBento/MagicBento.css';
+import './MagicBento.css';
 
 // ── Constants ──────────────────────────────────────────────────
 const DEFAULT_PARTICLE_COUNT  = 12;

@@ -1,4 +1,4 @@
-import "../../styles/Home/Hero.scss";
+import "./Hero.scss";
 import { lazy, Suspense } from "react";
 const Iridescence = lazy(() => import("../ui/Iridescence/Iridescence"));
 import ScrollIndicator from "../ui/ScrollIndicator/ScrollIndicator";

@@ -1,3 +1,5 @@
+@use "breakpoints" as bp;
+
 * {
   margin: 0;
   padding: 0;
@@ -77,7 +79,7 @@ body {
   position: relative;
   z-index: 1;
   min-height: 100vh;
-  margin-bottom: 160px;
+  margin-bottom: 210px; // móvil por defecto
   transition:
     transform var(--menu-transition),
     border-radius var(--menu-transition),
@@ -87,15 +89,21 @@ body {
   border-bottom-right-radius: 30px;
 
   &--menu-open {
-    @media (max-width: 1199px) {
-      transform: translateY(50vh);
-      border-radius: 20px 20px 0 0;
-    }
-    @media (min-width: 1200px) {
+    transform: translateY(50vh); // móvil/tablet por defecto
+    border-radius: 20px 20px 0 0;
+
+    @media (min-width: bp.$xl) {
       transform: translate(40%, 12%) rotate(-8deg);
       border-radius: 0;
       box-shadow: -60px 60px 160px rgba(0, 0, 0, 0.9);
     }
+  }
+
+  @media (min-width: bp.$md) {
+    margin-bottom: 175px;
+  }
+  @media (min-width: bp.$xl) {
+    margin-bottom: 160px;
   }
 }
 
@@ -107,20 +115,4 @@ body {
   border-bottom-left-radius: inherit;
   border-bottom-right-radius: inherit;
   overflow: hidden;
-}
-
-@media (max-width: 767px) {
-  .app-container {
-    margin-bottom: 210px;
-  }
-}
-@media (min-width: 768px) and (max-width: 1199px) {
-  .app-container {
-    margin-bottom: 175px;
-  }
-}
-@media (min-width: 1200px) {
-  .app-container {
-    margin-bottom: 160px;
-  }
 }

@@ -1,11 +1,13 @@
+@use "../../styles/breakpoints" as bp;
+
 .menu-overlay {
   position: fixed;
   inset: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-left: 10vw;
-  padding-top: 8vh;
+  padding-left: var(--spacing-lg); // móvil por defecto
+  padding-top: 6vh;
   visibility: hidden;
   opacity: 0;
   transition:
@@ -32,7 +34,7 @@
     border: none;
     color: rgba(255, 255, 255, 0.6);
     font-family: var(--font-main);
-    font-size: var(--font-size-nav-items);
+    font-size: 2rem; // móvil por defecto
     font-weight: var(--font-weight-medium);
     letter-spacing: 0.02em;
     cursor: pointer;
@@ -86,7 +88,7 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 1.4rem;
+    gap: 1.2rem; // móvil por defecto
   }
 
   &__item {
@@ -105,7 +107,7 @@
   // ── Link principal ────────────────────────────────────────────
   &__link {
     font-family: var(--font-main);
-    font-size: 2.2rem;
+    font-size: 2rem; // móvil por defecto
     font-weight: var(--font-weight-medium);
     color: rgba(255, 255, 255, 0.75);
     text-decoration: none;
@@ -161,27 +163,9 @@
   }
 }
 
-// ── Breakpoints ────────────────────────────────────────────────
-@media (max-width: 767px) {
-  .menu-overlay {
-    padding-left: var(--spacing-lg);
-    padding-top: 6vh;
-  }
-
-  .menu-overlay__link {
-    font-size: 2rem;
-  }
-
-  .menu-overlay__close {
-    font-size: 2rem;
-  }
-
-  .menu-overlay__list {
-    gap: 1.2rem;
-  }
-}
-
-@media (min-width: 768px) {
+// ── Breakpoints (mobile-first: los valores de arriba son el
+// estado de móvil; cada @media reafirma su propia zona) ─────────
+@media (min-width: bp.$md) {
   .menu-overlay {
     padding-left: 8vw;
     padding-top: 7vh;
@@ -194,9 +178,13 @@
   .menu-overlay__close {
     font-size: 2.2rem;
   }
+
+  .menu-overlay__list {
+    gap: 1.4rem;
+  }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: bp.$xl) {
   .menu-overlay {
     padding-left: 20vw;
     padding-top: 8vh;

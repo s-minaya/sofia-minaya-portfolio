@@ -1,0 +1,12 @@
+// ── Breakpoints centralizados ────────────────────────────────────
+// Fuente única de verdad para todos los @media del proyecto.
+// Mobile-first: todo @media es (min-width: ...), sin max-width ni
+// pares que haya que mantener sincronizados a mano.
+
+$xs: 375px; // Hero — a partir de aquí el título/subtítulo pasan a tamaño fluido (clamp)
+$sm: 640px; // Work, About — móvil grande / tablet pequeña
+$md: 768px; // tablet estándar (App, Footer, Hero, MenuOverlay, ScrollIndicator, Work)
+$lg: 1024px; // About, Footer — tablet grande
+$xl: 1200px; // desktop estándar (App, Footer, Hero, MenuOverlay, ScrollIndicator, Work)
+$xxl: 1280px; // About — desktop grande
+$xxxl: 1600px; // Hero, Work — desktop XL
