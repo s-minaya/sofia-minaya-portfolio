@@ -1,6 +1,9 @@
 import { useRef, useState, useEffect, useCallback, lazy, Suspense, memo } from "react";
 import { useMobileDetection } from "../../hooks/useMobileDetection";
 import { getDefaultParticleCount, getDefaultPixelRatio, DEFAULT_PARTICLE_COLORS } from "../../config/visuals";
+import projects from "../../data/projects";
+import projectFolders from "../../data/projectFolders";
+import ProjectFolder from "../ProjectFolder/ProjectFolder";
 const Particles = lazy(() => import("../ui/Particles/Particles"));
 const LogoLoop = lazy(() => import("../ui/LogoLoop/LogoLoop"));
 import "./Work.scss";
@@ -68,167 +71,11 @@ const TECH_LOGOS = [
   { node: <SiPostman />, title: "Postman" },
 ];
 
-const PROJECTS = [
-   {
-    id: "horoscope",
-    title: "Dark Horoscope",
-    url: "https://s-minaya.github.io/horoscope/",
-    image: new URL('../../images/projects/horoscope.webp', import.meta.url).href,
-    tags: ["JavaScript","Tailwind CSS", "Vite", "Code practice"],
-  },
-   {
-    id: "minaya-travel",
-    title: "Minaya Travel",
-    url: "https://s-minaya.github.io/minaya-travel/",
-    image: new URL('../../images/projects/minaya-travel.webp', import.meta.url).href,
-    tags: ["React","Tailwind CSS", "Vite",],
-  },
-    {
-    id: "react-testing-library",
-    title: "React Testing Library",
-    url: "https://github.com/s-minaya/react-testing-library",
-    image: new URL('../../images/projects/react-testing-library.webp', import.meta.url).href,
-    tags: ["Typescript", "MSW","Vitest","TDT", "TDD"],
-  },
-  {
-    id: "bat-magotchi",
-    title: "Bat-Magotchi",
-    url: "https://s-minaya.github.io/bat-magotchi/",
-    image: new URL('../../images/projects/bat-magotchi.webp', import.meta.url).href,
-    tags: ["JavaScript", "Game","Virtual pet"],
-  },
-  {
-    id: "animal-crossing-api",
-    title: "Animal Crossing API",
-    url: "https://github.com/Adalab/modulo-4-evaluacion-final-bpw-s-minaya",
-    image: new URL('../../images/projects/animal-crossing-api.webp', import.meta.url).href,
-    tags: ["Node.js", "Express", "MySQL","Postman"],
-  },
-  {
-    id: "profile-cards-demo",
-    title: "Awesome Profile Cards",
-    url: "https://estherquiros.github.io/project-promo-58-modulo-3-team-2/",
-    image: new URL('../../images/projects/profile-cards.webp', import.meta.url).href,
-    tags: ["React", "Node.js", "MySQL","Aiven","Render"],
-  },
-    {
-    id: "testing-con-javascript",
-    title: "JavaScript Testing Practice",
-    url: "https://github.com/s-minaya/testing-con-javascript",
-    image: new URL('../../images/projects/testing-con-javascript.webp', import.meta.url).href,
-    tags: ["MongoDB", "Testing", "Docker","CI/CD","TDD/BDD"],
-  },
-   {
-    id: "matematicas",
-    title: "Math Workshop",
-    url: "https://s-minaya.github.io/Matematicas-con-JavaScript/",
-    image: new URL('../../images/projects/matematicas.webp', import.meta.url).href,
-    tags: ["JavaScript", "Educational"],
-  },
-  {
-    id: "pokemon",
-    title: "Design Your Pokémon Team",
-    url: "https://s-minaya.github.io/dise-a-tu-equipo-pokemon/",
-    image: new URL('../../images/projects/pokemon.webp', import.meta.url).href,
-    tags: ["JavaScript", "Animations","Practice project"],
-  },
-  {
-    id: "memoria",
-    title: "Memory Game",
-    url: "https://s-minaya.github.io/juego-de-memoria/",
-    image: new URL('../../images/projects/memoria.webp', import.meta.url).href,
-    tags: ["React", "Game","Frontend"],
-  },
-  {
-    id: "harry-potter",
-    title: "Harry Potter Characters",
-    url: "https://beta.adalab.es/modulo-3-evaluacion-final-s-minaya/",
-    image: new URL('../../images/projects/harry-potter.webp', import.meta.url).href,
-    tags: ["React", "Routing", "API","Vite"],
-  },
-   {
-    id: "paises",
-    title: "Countries Explorer",
-    url: "https://s-minaya.github.io/Listado-de-paises/",
-    image: new URL('../../images/projects/paises.webp', import.meta.url).href,
-    tags: ["React", "API", "Filters"],
-  },
- 
-  {
-    id: "tienda",
-    title: "Virtual Store",
-    url: "https://beta.adalab.es/modulo-2-evaluacion-final-s-minaya/",
-    image: new URL('../../images/projects/tienda-virtual.webp', import.meta.url).href,
-    tags: ["JavaScript", "API", "Evaluation Project"],
-  },
-  {
-    id: "piedra-papel",
-    title: "Rock Paper Scissors",
-    url: "https://beta.adalab.es/modulo-2-evaluacion-intermedia-s-minaya/",
-    image: new URL('../../images/projects/piedra-papel-tijera.webp', import.meta.url).href,
-    tags: ["JavaScript", "Game", "Evaluation Project"],
-  },
-  {
-    id: "adatech",
-    title: "Adatech",
-    url: "https://s-minaya.github.io/proyect-promo-58-module-1-team-1/",
-    image: new URL('../../images/projects/adatech.webp', import.meta.url).href,
-    tags: ["HTML", "CSS", "Scrum", "Agile"],
-  },
-   {
-    id: "modulo-1",
-    title: "Layout Design Exam",
-    url: "https://beta.adalab.es/modulo-1-evaluacion-final-s-minaya/",
-    image: new URL('../../images/projects/modulo-1.webp', import.meta.url).href,
-    tags: ["Sass","BEM", "Vite", "Zeplin"],
-  },
-    {
-    id: "login",
-    title: "Login social media",
-    url: "https://s-minaya.github.io/log-in-red-social/",
-    image: new URL('../../images/projects/login.webp', import.meta.url).href,
-    tags: ["JavaScript", "Form", "Code practice"],
-  },
-    {
-    id: "overwatch",
-    title: "Overwatch form",
-    url: "https://s-minaya.github.io/Formulario-OW.github.io/",
-    image: new URL('../../images/projects/overwatch.webp', import.meta.url).href,
-    tags: ["HTML", "CSS", "Code practice", "Form"],
-  },
-     {
-    id: "jardin",
-    title: "The Garden of Earthly Delights",
-    url: "https://s-minaya.github.io/el-jardin-de-las-delicias/",
-    image: new URL('../../images/projects/jardin.webp', import.meta.url).href,
-    tags: ["JavaScript", "Code experiment", "Failed Attempt"],
-  },
-  {
-    id: "mefis",
-    title: "Mefis",
-    url: "https://s-minaya.github.io/Mefis/",
-    image: new URL('../../images/projects/mefis.webp', import.meta.url).href,
-    tags: ["HTML", "First project", "Code Written in README"],
-  },
-];
-
-// ── Arrow SVG ──────────────────────────────────────────────────
-function ArrowIcon({ className = "" }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M7 17L17 7M17 7H7M17 7V17" />
-    </svg>
-  );
-}
+// ── Folder previews ───────────────────────────────────────────
+const getPreviewImages = (folder) =>
+  folder.projectIds
+    .slice(0, 3)
+    .map((id) => projects.find((p) => p.id === id)?.image ?? null);
 
 // ── Rewind Icon SVG ───────────────────────────────────────────
 function RewindIcon({ className = "" }) {
@@ -248,44 +95,6 @@ function RewindIcon({ className = "" }) {
     </svg>
   );
 }
-
-// ── Project Card ───────────────────────────────────────────────
-const ProjectCard = memo(function ProjectCard({ project, index }) {
-  return (
-    <a
-      href={project.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="work-card"
-      style={{ "--card-index": index }}
-    >
-      <div className="work-card__media">
-        <img
-          src={project.image}
-          alt=""
-          className="work-card__img"
-          loading="lazy"
-          decoding="async"
-          draggable="false"
-        />
-        <div className="work-card__hover-overlay" aria-hidden="true">
-          <ArrowIcon className="work-card__hover-icon" />
-        </div>
-      </div>
-
-      <div className="work-card__footer">
-        <span className="work-card__title">{project.title}</span>
-        <ul className="work-card__tags" aria-label="Tecnologías">
-          {project.tags.map((tag) => (
-            <li key={tag} className="work-card__tag">
-              {tag}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </a>
-  );
-});
 
 // ── Tech Band ─────────────────────────────────────────────────
 const TechBand = memo(function TechBand() {
@@ -320,82 +129,118 @@ function Work() {
   const rewindRafRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isRewinding, setIsRewinding] = useState(false);
-  const total = PROJECTS.length;
-  const isAtEnd = activeIndex >= total - 1;
+  const [positions, setPositions] = useState(projectFolders.length);
+  const positionsRef = useRef(projectFolders.length);
+  const isRewindingRef = useRef(false);
+  const isAtEnd = activeIndex >= positions - 1;
   const isMobile = useMobileDetection();
+
+  // ── Geometría real del carrusel ────────────────────────────
+  // Ancho de una carpeta + gap del track (24px base, 28px desde $xl).
+  const getStep = useCallback((el) => {
+    const folders = el.querySelectorAll(".work-folder");
+    const cardW = folders[0]?.offsetWidth ?? 320;
+    const gap =
+      folders[1] && folders[1].offsetLeft - folders[0].offsetLeft > cardW
+        ? folders[1].offsetLeft - folders[0].offsetLeft - cardW
+        : 24;
+    return cardW + gap;
+  }, []);
+
+  // Cuántos movimientos (dots) hay según las carpetas visibles en pantalla.
+  const measure = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const step = getStep(el);
+    if (step <= 0) return;
+    const maxIndex = Math.round((el.scrollWidth - el.clientWidth) / step);
+    const clamped = Math.max(0, Math.min(maxIndex, projectFolders.length - 1));
+    positionsRef.current = clamped + 1;
+    setPositions(clamped + 1);
+  }, [getStep]);
 
   const onTrackScroll = useCallback(() => {
     const el = trackRef.current;
-    if (!el) return;
-    const cardW = el.querySelector(".work-card")?.offsetWidth ?? 0;
+    if (!el || isRewindingRef.current) return;
+    const step = getStep(el);
+    const maxIndex = positionsRef.current - 1;
 
     const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8;
     if (atEnd) {
-      setActiveIndex(total - 1);
+      setActiveIndex(maxIndex);
       return;
     }
-    const idx = Math.round(el.scrollLeft / (cardW + 24));
-    setActiveIndex(Math.max(0, Math.min(idx, total - 1)));
-  }, [total]);
+    const idx = Math.round(el.scrollLeft / step);
+    setActiveIndex(Math.max(0, Math.min(idx, maxIndex)));
+  }, [getStep]);
 
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
+    measure();
     el.addEventListener("scroll", onTrackScroll, { passive: true });
-    return () => el.removeEventListener("scroll", onTrackScroll);
-  }, [onTrackScroll]);
+    window.addEventListener("resize", measure);
+    return () => {
+      el.removeEventListener("scroll", onTrackScroll);
+      window.removeEventListener("resize", measure);
+    };
+  }, [measure, onTrackScroll]);
 
   // ── Arrow navigation ──────────────────────────────────────
   const scrollBy = (dir) => {
     const el = trackRef.current;
     if (!el) return;
-    const cardW = el.querySelector(".work-card")?.offsetWidth ?? 320;
-    el.scrollBy({ left: dir * (cardW + 24), behavior: "smooth" });
+    el.scrollBy({ left: dir * getStep(el), behavior: "smooth" });
   };
 
   // ── Dot navigation ────────────────────────────────────────
   const scrollToIndex = (i) => {
     const el = trackRef.current;
     if (!el) return;
-    const cardW = el.querySelector(".work-card")?.offsetWidth ?? 320;
-    el.scrollTo({ left: i * (cardW + 24), behavior: "smooth" });
+    el.scrollTo({ left: i * getStep(el), behavior: "smooth" });
   };
 
   // ── Rewind ────────────────────────────────────────────────
   const handleRewind = useCallback(() => {
     const el = trackRef.current;
-    if (!el || isRewinding) return;
+    if (!el || isRewindingRef.current) return;
 
+    isRewindingRef.current = true;
     setIsRewinding(true);
-    el.style.scrollBehavior = "auto"; 
+
+    // Sin snap ni scroll suave nativo durante el rAF: el navegador
+    // no "pelea" contra la animación y sale más fluido.
+    const prevSnap = el.style.scrollSnapType;
+    el.style.scrollSnapType = "none";
+    el.style.scrollBehavior = "auto";
 
     const startScroll = el.scrollLeft;
     const startTime = performance.now();
 
     const duration = Math.min(Math.max(startScroll * 0.8, 1200), 2200);
 
+    const easeInOutCubic = (t) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
     const animate = (now) => {
       const progress = Math.min((now - startTime) / duration, 1);
-
-      const eased =
-        progress < 0.5
-          ? 2 * progress * progress
-          : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+      const eased = easeInOutCubic(progress);
       el.scrollLeft = startScroll * (1 - eased);
 
       if (progress < 1) {
         rewindRafRef.current = requestAnimationFrame(animate);
       } else {
         el.scrollLeft = 0;
+        el.style.scrollSnapType = prevSnap;
         el.style.scrollBehavior = "";
+        isRewindingRef.current = false;
         setIsRewinding(false);
         setActiveIndex(0);
       }
     };
 
     rewindRafRef.current = requestAnimationFrame(animate);
-  }, [isRewinding]);
-
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -477,8 +322,16 @@ function Work() {
         {/* Carousel */}
         <div className="work__carousel-wrap">
           <div className="work__track" ref={trackRef}>
-            {PROJECTS.map((p, i) => (
-              <ProjectCard key={p.id} project={p} index={i} />
+            {projectFolders.map((folder) => (
+              <div className="work-folder" key={folder.id}>
+                <ProjectFolder
+                  title={folder.title}
+                  count={folder.projectIds.length}
+                  previewImages={getPreviewImages(folder)}
+                  to={`/work/${folder.slug}`}
+                  defaultOpen={folder.defaultOpen}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -489,12 +342,12 @@ function Work() {
           role="tablist"
           aria-label="Indicadores de proyecto"
         >
-          {PROJECTS.map((p, i) => (
+          {Array.from({ length: positions }, (_, i) => (
             <button
-              key={p.id}
+              key={i}
               role="tab"
               aria-selected={i === activeIndex}
-              aria-label={`Ir a ${p.title}`}
+              aria-label={`Ir a la posición ${i + 1} de ${positions}`}
               className={`work__dot${i === activeIndex ? " work__dot--active" : ""}`}
               onClick={() => scrollToIndex(i)}
             />

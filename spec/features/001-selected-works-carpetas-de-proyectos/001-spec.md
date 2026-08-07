@@ -45,20 +45,20 @@ Agrupar por temas resuelve tres cosas: lo mejor se ve primero, los proyectos de 
 3. Accept All Cookies
 
 ### 5 · Por dónde empecé
-1. Mefis
-2. El Jardín de las Delicias
-3. Overwatch Form
-4. Login Social Media
-5. Piedra Papel Tijera
-6. Pokémon
-7. Adatech
-8. Bat-Magotchi
+1. Bat-Magotchi
+2. Adatech
+3. Pokémon
+4. Piedra Papel Tijera
+5. Login Social Media
+6. Overwatch Form
+7. El Jardín de las Delicias
+8. Mefis
 
 Descripción de esta carpeta (sentido literal; se traduce al inglés en la UI sin suavizarlo):
 
 > Mi primera web fue en 2025 y el código estaba escrito en el README porque no sabía cómo utilizar GitHub ni desplegar en Pages. Los dejo todos aquí a propósito: esto es de dónde vengo.
 
-> ⚠️ Confirmar antes de la fase 1: este orden viene de la lista original, escrita antes de fijar el criterio de relevancia. Si no es el orden de relevancia que quieres, dilo y se cambia — no lo reordena el agente por su cuenta.
+> ✅ Confirmado (Fase 1): orden invertido del que venía en la lista original. Mefis fue el primer código (2025) y queda el último de la carpeta; el orden es de más reciente a más antiguo.
 
 **Repeticiones intencionales:** `JavaScript Testing Practice` está en las carpetas 2 y 4; `Accept All Cookies` está en las carpetas 1 y 4.
 
@@ -142,6 +142,7 @@ Mobile-first estricto, usando las variables de `src/styles/_breakpoints.scss`. E
 - **Componente de carpeta:** viene de uiverse.io, no de React Bits. No le aplica la excepción de "mantener `.css` plano": se traduce a SASS/BEM como componente propio del proyecto.
 - **Orden dentro de las carpetas:** por relevancia en las cinco, no cronológico.
 - **Enlaces de proyecto:** se mantiene `url` y se añade `repoUrl` con placeholder, a rellenar más adelante.
+- **Orden de la carpeta 5 (Por dónde empecé):** invertido del de la lista original — Bat-Magotchi el primero, Mefis el último. Mefis fue el primer código de Sofía (2025); el orden va de más reciente a más antiguo.
 
 ## Decisiones pendientes
 
@@ -149,13 +150,12 @@ Mobile-first estricto, usando las variables de `src/styles/_breakpoints.scss`. E
 | --- | --- | --- |
 | 1 | Comportamiento de la carpeta en táctil (sin hover) | Fase 4 |
 | 2 | Breakpoint definitivo para 4 carpetas (`$xxl` o `$xxxl`), a la vista del ancho real | Fase 4 |
-| 3 | Confirmar el orden de relevancia de la carpeta 5 | Fase 1 |
 
 ## Pendiente de aportar
 
 | # | Falta | Bloquea |
 | --- | --- | --- |
-| 1 | Código del componente bento | Fase 5 |
+| 1 | Código del componente bento ✅ recibido (`src/components/ui/BentoDemo/BentoDemo.tsx`) | Fase 5 |
 | 2 | Descripciones de las carpetas 1–4 | Detalle de esas carpetas |
 | 3 | Contenido de Accept All Cookies y Tech Jobs Dashboard | Sustituir los placeholders |
 | 4 | Imagen de portada de esos dos placeholders | Páginas de la carpeta Destacados |
