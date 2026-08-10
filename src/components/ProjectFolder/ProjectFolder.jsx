@@ -1,13 +1,18 @@
 import { Link } from "react-router-dom";
 import "./ProjectFolder.scss";
 
-function ProjectFolder({ title, count, previewImages, to, defaultOpen = false }) {
+function ProjectFolder({ title, count, previewImages, to, defaultOpen = false, folderSlug }) {
   const countLabel = `${count} ${count === 1 ? "project" : "projects"}`;
+
+  const handleClick = () => {
+    sessionStorage.setItem("portfolio:lastFolderSlug", folderSlug);
+  };
 
   return (
     <Link
       className={`folder${defaultOpen ? " folder--open" : ""}`}
       to={to}
+      onClick={handleClick}
       aria-label={`${title}, ${countLabel}`}
     >
       <span className="folder__shape" aria-hidden="true">

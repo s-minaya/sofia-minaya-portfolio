@@ -70,35 +70,41 @@ function App() {
   }, [location.pathname]);
 
   // "Back to Selected works" llega a "/" con state.scrollTo === "work":
-  // espera a que la sección #work (Work es lazy) tenga altura real y
-  // entonces hace scroll hasta ella.
+  // espera (con rAF, más fiable que ResizeObserver en móvil) a que la
+  // sección #work tenga altura real y entonces hace scroll hasta ella.
   useEffect(() => {
     if (location.pathname !== "/" || location.state?.scrollTo !== "work") return;
     const el = workRef.current;
     if (!el) return;
 
-    let done = false;
-    const scrollToWork = () => {
-      if (done) return;
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const behavior = prefersReducedMotion ? "auto" : "smooth";
+
+    let raf = 0;
+    const startedAt = performance.now();
+    let scrollDone = false;
+
+    const scrollToWork = (now) => {
+      if (scrollDone) return;
       if (el.getBoundingClientRect().height > 0) {
-        done = true;
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        scrollDone = true;
+        window.scrollTo({
+          top: el.getBoundingClientRect().top + window.scrollY,
+          behavior,
+        });
+        return;
+      }
+      if (now - startedAt < 3000) {
+        raf = requestAnimationFrame(scrollToWork);
       }
     };
 
-    scrollToWork();
-    if (done) return;
-
-    const ro = new ResizeObserver(scrollToWork);
-    ro.observe(el);
-    const fallback = setTimeout(() => {
-      ro.disconnect();
-      scrollToWork();
-    }, 2000);
+    raf = requestAnimationFrame(scrollToWork);
 
     return () => {
-      ro.disconnect();
-      clearTimeout(fallback);
+      cancelAnimationFrame(raf);
     };
   }, [location, workRef]);
 

@@ -2,7 +2,8 @@ import { useRef, useEffect, useCallback, useState, Children, cloneElement } from
 import "./BentoGrid.scss";
 
 const GRID_BREAKPOINT = 1024;
-const TAG_MIN_SCALE = 0.55;
+const TAG_MIN_SCALE_MOBILE = 0.45;
+const TAG_MIN_SCALE_DESKTOP = 0.55;
 const TAG_GAP_REM = 0.6;
 const TAG_SCALE_EPSILON = 0.002;
 
@@ -111,7 +112,9 @@ function BentoGridItem({ project, span = 1 }) {
       gapPx * (chips.length - 1);
     const available = el.clientWidth;
     if (available <= 0) return;
-    const scale = totalBase > available ? Math.max(TAG_MIN_SCALE, available / totalBase) : 1;
+    const minScale =
+      window.innerWidth < 768 ? TAG_MIN_SCALE_MOBILE : TAG_MIN_SCALE_DESKTOP;
+    const scale = totalBase > available ? Math.max(minScale, available / totalBase) : 1;
     setTagScale((prev) =>
       Math.abs(prev - scale) < TAG_SCALE_EPSILON ? prev : scale,
     );

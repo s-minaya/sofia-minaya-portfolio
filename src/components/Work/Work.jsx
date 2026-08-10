@@ -180,11 +180,29 @@ function Work() {
     measure();
     el.addEventListener("scroll", onTrackScroll, { passive: true });
     window.addEventListener("resize", measure);
+
+    // Restaura la última carpeta visitada (guardada al entrar a un detalle):
+    // posición instantánea del carrusel + índice activo, y consume el slug.
+    let restoreRaf = 0;
+    const lastSlug = sessionStorage.getItem("portfolio:lastFolderSlug");
+    if (lastSlug) {
+      sessionStorage.removeItem("portfolio:lastFolderSlug");
+      const idx = projectFolders.findIndex((f) => f.slug === lastSlug);
+      if (idx > 0) {
+        const step = getStep(el);
+        if (step > 0) {
+          el.scrollTo({ left: idx * step, behavior: "auto" });
+          restoreRaf = requestAnimationFrame(() => setActiveIndex(idx));
+        }
+      }
+    }
+
     return () => {
+      cancelAnimationFrame(restoreRaf);
       el.removeEventListener("scroll", onTrackScroll);
       window.removeEventListener("resize", measure);
     };
-  }, [measure, onTrackScroll]);
+  }, [measure, onTrackScroll, getStep]);
 
   // ── Arrow navigation ──────────────────────────────────────
   const prefersReducedMotion =
@@ -337,6 +355,7 @@ function Work() {
                   previewImages={getPreviewImages(folder)}
                   to={`/work/${folder.slug}`}
                   defaultOpen={folder.defaultOpen}
+                  folderSlug={folder.slug}
                 />
               </div>
             ))}
