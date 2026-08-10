@@ -85,6 +85,11 @@
     background: rgba(255, 255, 255, 0.08);
   }
 
+  &:focus-visible {
+    outline: 2px solid var(--color-text-primary);
+    outline-offset: 3px;
+  }
+
   &:disabled {
     opacity: 0.22;
     cursor: default;
@@ -220,6 +225,11 @@
   &:hover:not(.work__dot--active)::before {
     background: rgba(255, 255, 255, 0.55);
   }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-text-primary);
+    outline-offset: 3px;
+  }
 }
 
 // ── Tech Band ─────────────────────────────────────────────────
@@ -310,5 +320,11 @@
   .work__track {
     padding-left: var(--spacing-3xl);
     padding-right: var(--spacing-3xl);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work__rewind-icon--spinning {
+    animation: none;
   }
 }

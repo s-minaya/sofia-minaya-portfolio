@@ -21,33 +21,38 @@ Agrupar por temas resuelve tres cosas: lo mejor se ve primero, los proyectos de 
 **Criterio de orden: relevancia.** Lo más importante arriba, el relleno al final. Aplica a las cinco carpetas. El orden listado aquí es el orden final en pantalla: no se reordena en runtime ni se "mejora" el criterio.
 
 ### 1 · Destacados
-1. Accept All Cookies · placeholder
-2. Tech Jobs Dashboard · placeholder
+1. Tech Jobs Dashboard · en desarrollo (no publicado)
+2. Accept All Cookies · placeholder
 3. Awesome Profile Cards
 4. Minaya Travel
 
 ### 2 · Full Stack y APIs
-1. Animal Crossing API
+1. Tech Jobs Dashboard
 2. JavaScript Testing Practice (MongoDB + Docker + CI/CD)
-3. Harry Potter
-4. Countries Explorer
+3. Animal Crossing API
+4. Harry Potter
 5. Virtual Store
 
 ### 3 · React y Frontend
-1. Memory Game
-2. Dark Horoscope
-3. Layout Design Exam
-4. Math Workshop
+1. Bat-Magotchi
+2. Memory Game
+3. Math Workshop
+4. Minaya Travel
+5. Pokémon
+6. Dark Horoscope
+7. Countries Explorer
+8. Layout Design Exam
 
 ### 4 · Testing y buenas prácticas
-1. React Testing Library
-2. JavaScript Testing Practice
-3. Accept All Cookies
+1. Tech Jobs Dashboard
+2. Accept All Cookies
+3. React Testing Library
+4. JavaScript Testing Practice
 
 ### 5 · Por dónde empecé
 1. Bat-Magotchi
-2. Adatech
-3. Pokémon
+2. Pokémon
+3. Adatech
 4. Piedra Papel Tijera
 5. Login Social Media
 6. Overwatch Form
@@ -60,7 +65,7 @@ Descripción de esta carpeta (sentido literal; se traduce al inglés en la UI si
 
 > ✅ Confirmado (Fase 1): orden invertido del que venía en la lista original. Mefis fue el primer código (2025) y queda el último de la carpeta; el orden es de más reciente a más antiguo.
 
-**Repeticiones intencionales:** `JavaScript Testing Practice` está en las carpetas 2 y 4; `Accept All Cookies` está en las carpetas 1 y 4.
+**Repeticiones intencionales:** `Tech Jobs Dashboard` está en las carpetas 1, 2 y 4; `JavaScript Testing Practice` está en las carpetas 2 y 4; `Accept All Cookies` está en las carpetas 1 y 4; `Minaya Travel` está en las carpetas 1 y 3.
 
 ## Comportamiento responsive
 
@@ -143,6 +148,9 @@ Mobile-first estricto, usando las variables de `src/styles/_breakpoints.scss`. E
 - **Orden dentro de las carpetas:** por relevancia en las cinco, no cronológico.
 - **Enlaces de proyecto:** se mantiene `url` y se añade `repoUrl` con placeholder, a rellenar más adelante.
 - **Orden de la carpeta 5 (Por dónde empecé):** invertido del de la lista original — Bat-Magotchi el primero, Mefis el último. Mefis fue el primer código de Sofía (2025); el orden va de más reciente a más antiguo.
+- **Patrón bento global:** la retícula de todas las carpetas sale de una sola función, `buildSpans(count)` en `BentoGrid.jsx` — no hay estilos ni layouts por carpeta. Regla: pares → solo filas mixtas alternadas `[1,2]`/`[2,1]`; impares ≥5 → filas mixtas alternadas + una fila `[1,1,1]` en el índice central (`Math.ceil(filasMixtas/2)`); casos forzados: `1` → `[3]`, `2` → `[1,2]`, `3` → `[1,1,1]`. Así, añadir proyectos en el futuro reparte el layout sin sorpresas. Un guard en desarrollo verifica que cada fila sume 3 columnas y que el total de spans coincida con el número de proyectos.
+- **Organización de las imágenes:** `src/images/projects/` está dividida en subcarpetas que coinciden con los slugs de las carpetas (`featured/`, `full-stack-and-apis/`, `react-and-frontend/`, `testing-and-best-practices/`, `where-i-started/`). Cada imagen vive en la subcarpeta de la primera carpeta donde aparece su proyecto; los proyectos repetidos en varias carpetas siguen usando la misma imagen desde allí. Un proyecto nuevo se añade siempre dentro de su subcarpeta de sección.
+- **Status `in-development`:** valor de estado para proyectos con código e imagen reales pero aún sin publicar (Tech Jobs Dashboard). La UI aún no lo muestra; está listo para cuando se decida cómo pintarlo.
 
 ## Decisiones pendientes
 
@@ -158,5 +166,5 @@ Mobile-first estricto, usando las variables de `src/styles/_breakpoints.scss`. E
 | 1 | Código del componente bento ✅ recibido (`src/components/ui/BentoDemo/BentoDemo.tsx`) | Fase 5 |
 | 2 | Descripciones de las carpetas 1–4 | Detalle de esas carpetas |
 | 3 | Contenido de Accept All Cookies y Tech Jobs Dashboard | Sustituir los placeholders |
-| 4 | Imagen de portada de esos dos placeholders | Páginas de la carpeta Destacados |
+| 4 | Imágenes de portada de los placeholders ✅ recibidas (`accept-all-cookies.webp`, `tech-jobs-dashboard.webp`) | — |
 | 5 | URLs de repositorio | Segundo enlace en el bento |

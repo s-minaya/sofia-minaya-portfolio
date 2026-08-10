@@ -2,30 +2,39 @@ import { useRef, useEffect, useCallback, useState, Children, cloneElement } from
 import "./BentoGrid.scss";
 
 const GRID_BREAKPOINT = 1024;
+const TAG_MIN_SCALE = 0.55;
+const TAG_GAP_REM = 0.6;
+const TAG_SCALE_EPSILON = 0.002;
 
 function buildSpans(count) {
   if (count <= 0) return [];
-  if (count === 1) return [3];
 
-  let fullRows;
-  let wideRows;
-  if (count % 3 === 0) {
-    fullRows = count / 3;
-    wideRows = 0;
-  } else if (count % 3 === 2) {
-    fullRows = (count - 2) / 3;
-    wideRows = 1;
+  let rows;
+  if (count === 1) {
+    rows = [[3]];
+  } else if (count === 2) {
+    rows = [[1, 2]];
+  } else if (count === 3) {
+    rows = [[1, 1, 1]];
+  } else if (count % 2 === 0) {
+    rows = Array.from({ length: count / 2 }, (_, i) => (i % 2 === 0 ? [1, 2] : [2, 1]));
   } else {
-    fullRows = (count - 4) / 3;
-    wideRows = 2;
+    const wideRows = (count - 3) / 2;
+    rows = Array.from({ length: wideRows }, (_, i) => (i % 2 === 0 ? [1, 2] : [2, 1]));
+    rows.splice(Math.ceil(wideRows / 2), 0, [1, 1, 1]);
   }
 
-  const rows = [];
-  for (let i = 0; i < wideRows; i += 1) {
-    rows.push(i % 2 === 0 ? [1, 2] : [2, 1]);
-  }
-  for (let i = 0; i < fullRows; i += 1) {
-    rows.push([1, 1, 1]);
+  if (import.meta.env.DEV) {
+    for (const row of rows) {
+      const total = row.reduce((sum, span) => sum + span, 0);
+      if (total !== 3) {
+        throw new Error(`buildSpans: la fila ${JSON.stringify(row)} no suma 3 columnas (count ${count}).`);
+      }
+    }
+    const flat = rows.flat();
+    if (flat.length !== count) {
+      throw new Error(`buildSpans: ${flat.length} spans generados para ${count} proyectos. Revisa la regla del bento.`);
+    }
   }
 
   return rows.flat();
@@ -78,13 +87,64 @@ function BentoGrid({ className = "", children }) {
 }
 
 function BentoGridItem({ project, span = 1 }) {
+  const tagsRef = useRef(null);
+  const [tagScale, setTagScale] = useState(1);
+
+  // La medición se normaliza SIEMPRE a escala base (1): el ancho medido se
+  // divide por la escala aplicada. Si se midiera a la escala actual, aplicar
+  // la escala nueva volvería a disparar el ResizeObserver (el padding en `em`
+  // cambia la altura de la fila) y la escala oscilaría sin converger.
+  const fitTags = useCallback(() => {
+    const el = tagsRef.current;
+    if (!el) return;
+    const chips = el.querySelectorAll(".bento-grid__tag");
+    if (chips.length === 0) {
+      setTagScale((prev) => (prev === 1 ? prev : 1));
+      return;
+    }
+    const styles = getComputedStyle(el);
+    const rootFontPx = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    const appliedScale = parseFloat(styles.fontSize) / (1.2 * rootFontPx) || 1;
+    const gapPx = parseFloat(styles.gap) || TAG_GAP_REM * rootFontPx;
+    const totalBase =
+      [...chips].reduce((sum, chip) => sum + chip.offsetWidth / appliedScale, 0) +
+      gapPx * (chips.length - 1);
+    const available = el.clientWidth;
+    if (available <= 0) return;
+    const scale = totalBase > available ? Math.max(TAG_MIN_SCALE, available / totalBase) : 1;
+    setTagScale((prev) =>
+      Math.abs(prev - scale) < TAG_SCALE_EPSILON ? prev : scale,
+    );
+  }, []);
+
+  const hasTags = Boolean(project) && Array.isArray(project.tags) && project.tags.length > 0;
+
+  useEffect(() => {
+    if (!project || !hasTags) return;
+    const el = tagsRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(fitTags);
+    ro.observe(el);
+    let raf = 0;
+    const onFontsReady = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(fitTags);
+    };
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(onFontsReady);
+    }
+    return () => {
+      ro.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [project, hasTags, fitTags]);
+
   if (!project) return null;
 
   const Icon = project.icon;
   const isWide = span > 1;
   const hasImage = Boolean(project.image);
   const hasDescription = Boolean(project.description);
-  const hasTags = Array.isArray(project.tags) && project.tags.length > 0;
   const hasUrl = Boolean(project.url);
   const hasRepoUrl = Boolean(project.repoUrl);
 
@@ -122,20 +182,10 @@ function BentoGridItem({ project, span = 1 }) {
           <h2 className="bento-grid__title">{project.title}</h2>
         </div>
 
-        {(hasDescription || hasTags || hasUrl || hasRepoUrl) && (
+        {(hasDescription || hasUrl || hasRepoUrl) && (
           <div className="bento-grid__panel">
             {hasDescription && (
               <p className="bento-grid__description">{project.description}</p>
-            )}
-
-            {hasTags && (
-              <ul className="bento-grid__tags" aria-label="Technologies">
-                {project.tags.map((tag) => (
-                  <li className="bento-grid__tag" key={tag}>
-                    {tag}
-                  </li>
-                ))}
-              </ul>
             )}
 
             {(hasUrl || hasRepoUrl) && (
@@ -163,6 +213,21 @@ function BentoGridItem({ project, span = 1 }) {
               </div>
             )}
           </div>
+        )}
+
+        {hasTags && (
+          <ul
+            ref={tagsRef}
+            className="bento-grid__tags"
+            aria-label="Technologies"
+            style={{ "--tag-scale": tagScale }}
+          >
+            {project.tags.map((tag) => (
+              <li className="bento-grid__tag" key={tag}>
+                {tag}
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     </article>

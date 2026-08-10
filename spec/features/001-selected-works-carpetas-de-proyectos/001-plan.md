@@ -41,7 +41,7 @@ El carrusel de `Work.jsx` se reutiliza tal cual: cambia lo que hay dentro, no el
   slug: 'featured',
   title: 'Featured',
   description: '<copy de la carpeta>',
-  projectIds: ['accept-all-cookies', 'tech-jobs-dashboard', '…'], // el orden ES el orden de pantalla
+  projectIds: ['tech-jobs-dashboard', 'accept-all-cookies', '…'], // el orden ES el orden de pantalla
   defaultOpen: true, // solo Destacados
 }
 ```

@@ -46,7 +46,7 @@ function ProjectDetail() {
           <Link className="project-detail__back" to="/" state={{ scrollTo: "work" }}>
             &larr; Back to Selected works
           </Link>
-          <p className="project-detail__not-found">Folder not found.</p>
+          <h1 className="project-detail__not-found">Folder not found.</h1>
         </div>
       </main>
     );

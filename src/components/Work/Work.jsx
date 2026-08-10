@@ -187,17 +187,23 @@ function Work() {
   }, [measure, onTrackScroll]);
 
   // ── Arrow navigation ──────────────────────────────────────
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const scrollBehavior = () => (prefersReducedMotion ? "auto" : "smooth");
+
   const scrollBy = (dir) => {
     const el = trackRef.current;
     if (!el) return;
-    el.scrollBy({ left: dir * getStep(el), behavior: "smooth" });
+    el.scrollBy({ left: dir * getStep(el), behavior: scrollBehavior() });
   };
 
   // ── Dot navigation ────────────────────────────────────────
   const scrollToIndex = (i) => {
     const el = trackRef.current;
     if (!el) return;
-    el.scrollTo({ left: i * getStep(el), behavior: "smooth" });
+    el.scrollTo({ left: i * getStep(el), behavior: scrollBehavior() });
   };
 
   // ── Rewind ────────────────────────────────────────────────
@@ -310,6 +316,7 @@ function Work() {
               className={`work__nav-btn work__nav-btn--rewind${isAtEnd ? " work__nav-btn--rewind-visible" : ""}`}
               onClick={handleRewind}
               disabled={isRewinding}
+              tabIndex={isAtEnd ? 0 : -1}
               aria-label="Volver al primer proyecto"
             >
               <RewindIcon

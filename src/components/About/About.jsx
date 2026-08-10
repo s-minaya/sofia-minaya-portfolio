@@ -10,9 +10,9 @@ import portraitGif from "../../images/portrait.webp";
 
 // ── Stats data ─────────────────────────────────────────────────
 const STATS = [
-  { value: 18,   suffix: "",  label: "projects built",   icon: FolderGit2 },
-  { value: 1040, suffix: "+", label: "hours of code",    icon: Clock      },
-  { value: 260,  suffix: "+", label: "coffees consumed", icon: Coffee     },
+  { value: 22,   suffix: "",  label: "projects built",   icon: FolderGit2 },
+  { value: 1866, suffix: "+", label: "hours of code",    icon: Clock      },
+  { value: 622,  suffix: "+", label: "coffees consumed", icon: Coffee     },
 ];
 
 // ── Animated counter hook ──────────────────────────────────────

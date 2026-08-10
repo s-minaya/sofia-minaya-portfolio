@@ -62,13 +62,14 @@
   font-family: var(--font-main);
   font-size: clamp(1.4rem, 3vw, 1.8rem);
   line-height: 1.6;
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
 }
 
 .project-detail__not-found {
   font-family: var(--font-main);
-  font-size: 1.6rem;
-  color: var(--color-text-muted);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
 }
 
 @media (min-width: bp.$md) {

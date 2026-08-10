@@ -6,7 +6,7 @@ const projectFolders = [
     slug: "featured",
     title: "Featured",
     description: null,
-    projectIds: ["accept-all-cookies", "tech-jobs-dashboard", "profile-cards", "minaya-travel"],
+    projectIds: ["tech-jobs-dashboard", "accept-all-cookies", "profile-cards", "minaya-travel"],
     defaultOpen: true,
   },
   {
@@ -14,7 +14,7 @@ const projectFolders = [
     slug: "full-stack-and-apis",
     title: "Full Stack & APIs",
     description: null,
-    projectIds: ["animal-crossing-api", "javascript-testing-practice", "harry-potter", "countries-explorer", "virtual-store", "tech-jobs-dashboard"],
+    projectIds: ["tech-jobs-dashboard", "javascript-testing-practice", "animal-crossing-api", "harry-potter", "virtual-store"],
     defaultOpen: false,
   },
   {
@@ -22,7 +22,7 @@ const projectFolders = [
     slug: "react-and-frontend",
     title: "React & Frontend",
     description: null,
-    projectIds: ["memory-game", "dark-horoscope", "layout-design-exam", "math-workshop", "bat-magotchi", "pokemon-team", "minaya-travel"],
+    projectIds: ["bat-magotchi", "memory-game", "math-workshop", "minaya-travel", "pokemon-team", "dark-horoscope", "countries-explorer", "layout-design-exam"],
     defaultOpen: false,
   },
   {
@@ -30,7 +30,7 @@ const projectFolders = [
     slug: "testing-and-best-practices",
     title: "Testing & Best Practices",
     description: null,
-    projectIds: ["react-testing-library", "javascript-testing-practice", "accept-all-cookies"],
+    projectIds: ["tech-jobs-dashboard", "accept-all-cookies", "react-testing-library", "javascript-testing-practice"],
     defaultOpen: false,
   },
   {
@@ -39,7 +39,7 @@ const projectFolders = [
     title: "Where I Started",
     description:
       "My first website was in 2025 and the code was written in the README because I didn't know how to use GitHub or deploy to Pages. I keep them all here on purpose: this is where I come from.",
-    projectIds: ["bat-magotchi", "adatech", "pokemon-team", "rock-paper-scissors", "login-social-media", "overwatch-form", "garden-of-earthly-delights", "mefis"],
+    projectIds: ["bat-magotchi", "pokemon-team", "adatech", "rock-paper-scissors", "login-social-media", "overwatch-form", "garden-of-earthly-delights", "mefis"],
     defaultOpen: false,
   },
 ];

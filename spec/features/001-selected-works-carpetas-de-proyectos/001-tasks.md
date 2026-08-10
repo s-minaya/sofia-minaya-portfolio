@@ -57,18 +57,18 @@
 - [x] 🔒 Bloqueada hasta recibir el código del componente bento. **Material recibido** (Sofía lo dejó en `src/components/ui/BentoDemo/BentoDemo.tsx`).
 - [x] Adaptar el bento a los proyectos reales, en el orden de `projectIds`.
 - [x] Eliminar todo el contenido de ejemplo del componente original.
-- [ ] Campos en `null` no pintan nada: sin descripción no hay párrafo, sin `url` o `repoUrl` no hay botón. Cero `href="#"`.
-- [ ] Enlaces externos con `rel="noopener noreferrer"`.
+- [x] Campos en `null` no pintan nada: sin descripción no hay párrafo, sin `url` o `repoUrl` no hay botón. Cero `href="#"`.
+- [x] Enlaces externos con `rel="noopener noreferrer"`.
 
 ## Fase 6 — Calidad
 
-- [ ] Hook propio que actualiza `<title>` y `<meta name="description">` por vista de detalle. Sin dependencias nuevas.
-- [ ] Recorrido completo con teclado; foco visible en todo momento.
-- [ ] Un solo `<h1>` por vista; jerarquía de encabezados coherente.
-- [ ] `alt` descriptivo en imágenes de proyecto; `alt=""` en las decorativas.
-- [ ] `loading="lazy"` salvo en lo visible al cargar.
-- [ ] `prefers-reduced-motion: reduce` desactiva apertura y movimiento automático.
-- [ ] Contraste mínimo 4.5:1 sobre `--color-bg-dark`.
+- [x] Hook propio que actualiza `<title>` y `<meta name="description">` por vista de detalle. Sin dependencias nuevas.
+- [x] Recorrido completo con teclado; foco visible en todo momento.
+- [x] Un solo `<h1>` por vista; jerarquía de encabezados coherente.
+- [x] `alt` descriptivo en imágenes de proyecto; `alt=""` en las decorativas.
+- [x] `loading="lazy"` salvo en lo visible al cargar.
+- [x] `prefers-reduced-motion: reduce` desactiva apertura y movimiento automático.
+- [x] Contraste mínimo 4.5:1 sobre `--color-bg-dark`.
 
 ## Cierre
 
