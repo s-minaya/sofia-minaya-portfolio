@@ -12,10 +12,11 @@ const HERO_TYPEWRITER_TEXTS = [
 ];
 
 const WORK_TYPEWRITER_TEXTS = [
+  "AI coding agents & LLMs.",
   "backend development.",
   "frontend development.",
   "Agile & Scrum methodologies.",
-  "testing (basic knowledge)",
+  "testing",
 ];
 
 const ABOUT_TYPEWRITER_TEXTS = [
@@ -25,7 +26,12 @@ const ABOUT_TYPEWRITER_TEXTS = [
   "creative at heart.",
 ];
 
-function Hero({ onMenuClick, workMode = false, aboutMode = false, hideScrollIndicator = false }) {
+function Hero({
+  onMenuClick,
+  workMode = false,
+  aboutMode = false,
+  hideScrollIndicator = false,
+}) {
   const activeTexts = workMode
     ? WORK_TYPEWRITER_TEXTS
     : aboutMode
@@ -72,8 +78,8 @@ function Hero({ onMenuClick, workMode = false, aboutMode = false, hideScrollIndi
   } else if (aboutMode) {
     descriptionNode = (
       <p className="hero__description">
-        Hospitality industry survivor turned full-stack developer.
-        Curious, resilient, and always chasing the next creative challenge.
+        Hospitality industry survivor turned full-stack developer. Curious,
+        resilient, and always chasing the next creative challenge.
       </p>
     );
   } else {
@@ -86,7 +92,8 @@ function Hero({ onMenuClick, workMode = false, aboutMode = false, hideScrollIndi
     );
   }
 
-  const cursorClass = "hero__cursor" + (isDeleting ? " hero__cursor--deleting" : "");
+  const cursorClass =
+    "hero__cursor" + (isDeleting ? " hero__cursor--deleting" : "");
 
   return (
     <section id="home" className="hero">

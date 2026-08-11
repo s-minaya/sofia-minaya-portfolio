@@ -1,6 +1,18 @@
-import { useRef, useState, useEffect, useCallback, lazy, Suspense, memo } from "react";
+import {
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  lazy,
+  Suspense,
+  memo,
+} from "react";
 import { useMobileDetection } from "../../hooks/useMobileDetection";
-import { getDefaultParticleCount, getDefaultPixelRatio, DEFAULT_PARTICLE_COLORS } from "../../config/visuals";
+import {
+  getDefaultParticleCount,
+  getDefaultPixelRatio,
+  DEFAULT_PARTICLE_COLORS,
+} from "../../config/visuals";
 import projects from "../../data/projects";
 import projectFolders from "../../data/projectFolders";
 import ProjectFolder from "../ProjectFolder/ProjectFolder";
@@ -13,9 +25,14 @@ import {
   SiHtml5,
   SiCss3,
   SiSass,
+  SiBem,
+  SiCssmodules,
   SiTailwindcss,
   SiReact,
+  SiReactrouter,
   SiVite,
+  SiGreensock,
+  SiWebgl,
   SiNodedotjs,
   SiExpress,
   SiMysql,
@@ -27,16 +44,22 @@ import {
   SiRender,
   SiSlack,
   SiPostman,
+  SiFigma,
+  SiApple,
+  SiClaude,
   SiJest,
   SiVitest,
   SiMockserviceworker,
   SiTestinglibrary,
   SiDocker,
   SiEslint,
+  SiGithubpages,
+  SiLighthouse,
 } from "react-icons/si";
 import { MdGroups } from "react-icons/md";
 import { VscVscode } from "react-icons/vsc";
-import { TbTestPipe2, TbBrandGithub } from "react-icons/tb";
+import { TbBrandGithub } from "react-icons/tb";
+import { PlaywrightIcon, OpenCodeIcon, KimiIcon } from "./TechIcons";
 
 // ── Tech logos for LogoLoop ────────────────────────────────────
 const TECH_LOGOS = [
@@ -45,9 +68,14 @@ const TECH_LOGOS = [
   { node: <SiHtml5 />, title: "HTML5" },
   { node: <SiCss3 />, title: "CSS3" },
   { node: <SiSass />, title: "Sass" },
+  { node: <SiBem />, title: "BEM" },
+  { node: <SiCssmodules />, title: "CSS Modules" },
   { node: <SiTailwindcss />, title: "Tailwind CSS" },
   { node: <SiReact />, title: "React" },
+  { node: <SiReactrouter />, title: "React Router" },
   { node: <SiVite />, title: "Vite" },
+  { node: <SiGreensock />, title: "GSAP" },
+  { node: <SiWebgl />, title: "WebGL / OGL" },
   { node: <SiNodedotjs />, title: "Node.js" },
   { node: <SiExpress />, title: "Express.js" },
   { node: <SiMysql />, title: "MySQL" },
@@ -59,14 +87,21 @@ const TECH_LOGOS = [
   { node: <SiVitest />, title: "Vitest" },
   { node: <SiMockserviceworker />, title: "Mock Service Worker" },
   { node: <SiTestinglibrary />, title: "Testing Library" },
-  { node: <TbTestPipe2 />, title: "Playwright" },
+  { node: <PlaywrightIcon />, title: "Playwright" },
   { node: <SiDocker />, title: "Docker" },
   { node: <SiEslint />, title: "ESLint" },
   { node: <TbBrandGithub />, title: "GitHub Actions" },
+  { node: <SiGithubpages />, title: "GitHub Pages" },
+  { node: <SiLighthouse />, title: "Lighthouse" },
   { node: <MdGroups />, title: "Agile & Scrum" },
   { node: <SiRender />, title: "Render" },
   { node: <SiAdobephotoshop />, title: "Photoshop" },
   { node: <SiCanva />, title: "Canva" },
+  { node: <SiFigma />, title: "Figma" },
+  { node: <SiApple />, title: "macOS" },
+  { node: <SiClaude />, title: "Claude Code" },
+  { node: <OpenCodeIcon />, title: "OpenCode", wordmark: true },
+  { node: <KimiIcon />, title: "Kimi K3" },
   { node: <SiSlack />, title: "Slack" },
   { node: <SiPostman />, title: "Postman" },
 ];
@@ -97,11 +132,35 @@ function RewindIcon({ className = "" }) {
 }
 
 // ── Tech Band ─────────────────────────────────────────────────
+function TechItem({ item }) {
+  const [tipVisible, setTipVisible] = useState(false);
+
+  return (
+    <button
+      type="button"
+      className={`work__tech-item${tipVisible ? " work__tech-item--tip-visible" : ""}`}
+      onClick={() => setTipVisible((visible) => !visible)}
+      onBlur={() => setTipVisible(false)}
+      aria-label={item.title}
+    >
+      <span
+        className={`work__tech-icon${item.wordmark ? " work__tech-icon--wordmark" : ""}`}
+        aria-hidden="true"
+      >
+        {item.node}
+      </span>
+      <span className="work__tech-tip" role="tooltip" aria-hidden="true">
+        {item.title}
+      </span>
+    </button>
+  );
+}
+
 const TechBand = memo(function TechBand() {
   return (
     <div className="work__tech-band">
-      <p className="work__tech-label" aria-label="Tools and technologies">
-        tools &amp; technologies
+      <p className="work__tech-label" aria-label="What I work with">
+        What I work with
       </p>
       <div className="work__tech-loop">
         <Suspense fallback={null}>
@@ -113,9 +172,8 @@ const TechBand = memo(function TechBand() {
             gap={40}
             hoverSpeed={0}
             scaleOnHover
-            fadeOut
-            fadeOutColor="#000000"
-            ariaLabel="Tools and technologies"
+            ariaLabel="What I work with"
+            renderItem={(item) => <TechItem item={item} />}
           />
         </Suspense>
       </div>
